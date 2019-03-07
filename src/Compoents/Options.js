@@ -5,7 +5,6 @@ import { withNavigation } from "react-navigation";
 
 class Options extends Component {
   onClick = () => {
-    // alert("Hii");
     this.props.navigation.navigate("ListOptions");
   };
 
