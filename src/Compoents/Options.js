@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../Style/Colors";
 
 class Options extends Component {
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     elevation: 4,
     alignItems: "center",
     width: 160,
-    height: 160
+    height: 160,
+    borderRadius: 8
   },
   img: {
     width: 80,

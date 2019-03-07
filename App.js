@@ -8,10 +8,10 @@
  */
 
 import React, { Component } from "react";
-import ListOptions from "./src/App/ListOptions";
+import Dashboard from "./src/App/Dashboard";
 
 export default class App extends Component {
   render() {
-    return <ListOptions />;
+    return <Dashboard />;
   }
 }
