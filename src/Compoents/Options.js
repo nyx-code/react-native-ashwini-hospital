@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../Style/Colors";
+import { withNavigation } from "react-navigation";
 
 class Options extends Component {
+  onClick = () => {
+    // alert("Hii");
+    this.props.navigation.navigate("ListOptions");
+  };
+
   render() {
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={this.onClick}>
         <Image style={styles.img} source={this.props.imgPath} />
         <Text style={styles.name}> {this.props.name} </Text>
       </TouchableOpacity>
@@ -30,11 +36,11 @@ const styles = StyleSheet.create({
     marginVertical: 6
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#333",
     fontWeight: "bold",
     marginVertical: 8
   }
 });
 
-export default Options;
+export default withNavigation(Options);

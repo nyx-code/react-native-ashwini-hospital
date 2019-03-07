@@ -1,4 +1,3 @@
-import React from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import DashBoard from "../App/Dashboard";
 import ListOptions from "../App/ListOptions";
@@ -12,4 +11,6 @@ const AppNavigation = createStackNavigator({
   }
 });
 
-export default createAppContainer(AppNavigation);
+const AppContainer = createAppContainer(AppNavigation);
+
+export default AppContainer;

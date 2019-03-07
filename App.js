@@ -8,10 +8,11 @@
  */
 
 import React, { Component } from "react";
-import Dashboard from "./src/App/Dashboard";
+// import Dashboard from "./src/App/Dashboard";
+import Navigation from "./src/Navigation/Navigation";
 
 export default class App extends Component {
   render() {
-    return <Dashboard />;
+    return <Navigation />;
   }
 }
