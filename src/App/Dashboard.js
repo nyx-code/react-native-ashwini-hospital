@@ -1,37 +1,47 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { colors } from "../Style/Colors";
+import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
+import Header from "../Compoents/Header";
 
 export class Dashboard extends Component {
   render() {
     return (
       <View styles={styles.container}>
-        <View style={styles.dayWrapper}>
-          <Text style={styles.day}>MONDAY, 8 MARCH</Text>
-        </View>
+        <Header text="Dashboard" />
         <View style={styles.profile}>
           <Image
             style={styles.imgStyle}
             source={require("../assets/doctor.png")}
           />
           <View style={styles.profileNameWrapper}>
-            <Text style={styles.name}>DR. Nilesh Kadam</Text>
+            <Text style={styles.name}>DR. Shailesh Kadam</Text>
             <Text style={styles.profession}>MEDICINE</Text>
           </View>
         </View>
         <View style={styles.dashboard}>
           <View style={styles.dashboardOptions}>
-            <Options name="OPD" imgPath={require("../assets/OPD.png")} />
-            <Options name="IPD" imgPath={require("../assets/IPD.png")} />
+            <Options
+              name="OPD"
+              no={20}
+              imgPath={require("../assets/OPD.png")}
+            />
+            <Options
+              name="IPD"
+              no={40}
+              imgPath={require("../assets/IPD.png")}
+            />
           </View>
           <View style={styles.dashboardOptions}>
             <Options
               name="SCHEDULE"
+              no={20}
               imgPath={require("../assets/Schedule.png")}
             />
             <Options
               name="DISCHARGE"
+              no={11}
               imgPath={require("../assets/Discharge.png")}
             />
           </View>
@@ -44,44 +54,36 @@ export class Dashboard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#333"
-  },
-  dayWrapper: {
-    height: 40,
-    padding: 10,
-    marginVertical: 10,
-    marginHorizontal: 10,
-    fontFamily: "sans-serif"
-  },
-  day: {
-    fontSize: 20,
-    color: "#333",
-    fontWeight: "bold"
+    backgroundColor: "red",
+    justifyContent: "space-between"
   },
   profile: {
     margin: 10,
-    flexDirection: "row",
     backgroundColor: colors.primaryColor,
     alignItems: "center",
     padding: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    height: hp("24%"),
+    justifyContent: "center",
+    borderRadius: 10
   },
   imgStyle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30
+    width: wp("16%"),
+    height: hp("10%")
   },
   profileNameWrapper: {
     marginHorizontal: 20,
     justifyContent: "center"
   },
   name: {
-    fontSize: 18,
-    color: colors.whiteColor
+    fontSize: hp("2.8%"),
+    color: colors.whiteColor,
+    marginVertical: 6
   },
   profession: {
-    fontSize: 16,
-    color: colors.lightGrey
+    fontSize: hp("2.6%"),
+    color: colors.lightGrey,
+    textAlign: "center"
   },
   dashboard: {
     backgroundColor: colors.lightGrey,

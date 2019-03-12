@@ -1,4 +1,4 @@
-export const data = [
+export const Jsondata = [
   {
     pin: 228923,
     voucher: 232434,
@@ -38,5 +38,21 @@ export const data = [
     age: 30,
     gender: "FEMALE",
     location: "wagholi"
+  },
+  {
+    pin: 923,
+    voucher: 1334,
+    name: "Bahubali",
+    age: 20,
+    gender: "MALE",
+    location: "shevnagar"
+  },
+  {
+    pin: 2000,
+    voucher: 234,
+    name: "Kohinur",
+    age: 10,
+    gender: "FEMALE",
+    location: "hadapsar"
   }
 ];

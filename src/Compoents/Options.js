@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../Style/Colors";
 import { withNavigation } from "react-navigation";
+import { wp, hp } from "../Style/responsive";
 
 class Options extends Component {
   onClick = () => {
@@ -9,10 +10,17 @@ class Options extends Component {
   };
 
   render() {
+    const { name, imgPath, no } = this.props;
+    console.log("options render");
     return (
-      <TouchableOpacity style={styles.container} onPress={this.onClick}>
-        <Image style={styles.img} source={this.props.imgPath} />
-        <Text style={styles.name}> {this.props.name} </Text>
+      <TouchableOpacity
+        activeOpacity={0.4}
+        style={styles.container}
+        onPressIn={this.onClick}
+      >
+        <Image style={styles.img} source={imgPath} />
+        <Text style={styles.name}> {name} </Text>
+        <Text style={styles.no}>({no})</Text>
       </TouchableOpacity>
     );
   }
@@ -21,24 +29,29 @@ class Options extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.whiteColor,
-    padding: 20,
-    margin: 20,
-    elevation: 4,
+    padding: 10,
+    elevation: 1,
     alignItems: "center",
-    width: 160,
-    height: 160,
-    borderRadius: 8
+    width: wp("50%"),
+    height: hp("26%"),
+    borderWidth: 0.4,
+    borderColor: "grey"
   },
   img: {
-    width: 80,
-    height: 80,
-    marginVertical: 6
+    width: wp("14%"),
+    height: hp("12%"),
+    marginVertical: 4,
+    resizeMode: "contain"
   },
   name: {
-    fontSize: 16,
+    fontSize: hp("2.6%"),
     color: "#333",
     fontWeight: "bold",
-    marginVertical: 8
+    marginVertical: 4
+  },
+  no: {
+    fontSize: hp("2.4%"),
+    fontWeight: "bold"
   }
 });
 
