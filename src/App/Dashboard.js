@@ -3,13 +3,28 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
-import Header from "../Compoents/Header";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export class Dashboard extends Component {
+  static navigationOptions = {
+    title: "Dashboard",
+    headerTintColor: colors.primaryColor,
+    headerTitleStyle: {
+      fontWeight: "bold"
+    },
+    headerRight: (
+      <Icon
+        style={{ marginRight: 10 }}
+        name="logout"
+        size={24}
+        color={colors.primaryColor}
+      />
+    )
+  };
+
   render() {
     return (
       <View styles={styles.container}>
-        <Header text="Dashboard" />
         <View style={styles.profile}>
           <Image
             style={styles.imgStyle}
@@ -86,7 +101,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   dashboard: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.primaryColor,
     justifyContent: "center",
     alignItems: "center"
   },

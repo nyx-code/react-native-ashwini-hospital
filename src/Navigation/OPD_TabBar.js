@@ -3,16 +3,16 @@ import {
   createMaterialTopTabNavigator,
   createAppContainer
 } from "react-navigation";
-import Emr from "./TabScreens/Emr";
-import ViewReport from "./TabScreens/ViewReport";
-import Vitals from "./TabScreens/Vitals";
+import All from "./OPD_TabScreen/All";
+import Offline from "./OPD_TabScreen/Offline";
+import Online from "./OPD_TabScreen/Online";
 import { colors } from "../Style/Colors";
 
-const TabBar = createMaterialTopTabNavigator(
+const OPD_TabBar = createMaterialTopTabNavigator(
   {
-    Vital: Vitals,
-    ViewReport: ViewReport,
-    Emr: Emr
+    All: All,
+    Offline: Offline,
+    Online: Online
   },
   {
     tabBarOptions: {
@@ -31,4 +31,4 @@ const TabBar = createMaterialTopTabNavigator(
   }
 );
 
-export default createAppContainer(TabBar);
+export default createAppContainer(OPD_TabBar);

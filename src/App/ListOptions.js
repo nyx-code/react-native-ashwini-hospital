@@ -7,10 +7,10 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import { Jsondata } from "./dummy";
 import { hp } from "../Style/responsive";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const fetchData = () => {
   return new Promise((resolve, reject) => {
@@ -24,10 +24,6 @@ const fetchData = () => {
 class ListOptions extends Component {
   state = {
     data: []
-  };
-
-  static navigationOptions = {
-    title: "OPD List"
   };
 
   componentDidMount() {
@@ -58,12 +54,11 @@ class ListOptions extends Component {
     const { data } = this.state;
     return (
       <View style={styles.container}>
-        <Header text="OPD List" />
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           {data.map((data, i) => (
             <TouchableOpacity
               key={i}
-              onPress={this.onClick}
+              onPressIn={this.onClick}
               style={styles.listWrapper}
               activeOpacity={0.4}
             >

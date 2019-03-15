@@ -6,7 +6,7 @@ import { wp, hp } from "../Style/responsive";
 
 class Options extends Component {
   onClick = () => {
-    this.props.navigation.navigate("ListOptions");
+    this.props.navigation.navigate("OPD_TabBar");
   };
 
   render() {
@@ -16,7 +16,7 @@ class Options extends Component {
       <TouchableOpacity
         activeOpacity={0.4}
         style={styles.container}
-        onPressIn={this.onClick}
+        onPress={this.onClick}
       >
         <Image style={styles.img} source={imgPath} />
         <Text style={styles.name}> {name} </Text>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: wp("50%"),
     height: hp("26%"),
     borderWidth: 0.4,
-    borderColor: "grey"
+    borderColor: colors.lightGrey
   },
   img: {
     width: wp("14%"),

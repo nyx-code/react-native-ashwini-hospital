@@ -3,14 +3,16 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
-import TabBar from "../Navigation/TabBar";
+import TabBar from "../Navigation/Profile_TabBar";
 
 class PatientProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+  static navigationOptions = {
+    title: "Profile",
+    headerTintColor: colors.primaryColor,
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
+  };
   setImage(gender) {
     if (gender === "MALE") {
       return require("../assets/MALE.png");
@@ -22,7 +24,6 @@ class PatientProfile extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header text="Profile" />
         <View style={styles.profileWrapper}>
           <View style={styles.imgContainer}>
             <Image style={styles.img} source={this.setImage("FEMALE")} />
