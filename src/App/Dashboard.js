@@ -22,6 +22,14 @@ export class Dashboard extends Component {
     )
   };
 
+  onOPD = () => {
+    this.props.navigation.navigate("OPD_TabBar");
+  };
+
+  onIPD = () => {
+    this.props.navigation.navigate("IPD_TabBar");
+  };
+
   render() {
     return (
       <View styles={styles.container}>
@@ -41,11 +49,13 @@ export class Dashboard extends Component {
               name="OPD"
               no={20}
               imgPath={require("../assets/OPD.png")}
+              onClick={this.onOPD}
             />
             <Options
               name="IPD"
               no={40}
               imgPath={require("../assets/IPD.png")}
+              onClick={this.onIPD}
             />
           </View>
           <View style={styles.dashboardOptions}>
@@ -80,7 +90,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     height: hp("24%"),
     justifyContent: "center",
-    borderRadius: 10
+    borderRadius: 10,
+    marginTop: 20
   },
   imgStyle: {
     width: wp("16%"),

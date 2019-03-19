@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import {
   createMaterialTopTabNavigator,
   createAppContainer

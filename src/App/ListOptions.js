@@ -10,7 +10,8 @@ import {
 import { colors } from "../Style/Colors";
 import { Jsondata } from "./dummy";
 import { hp } from "../Style/responsive";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { withNavigation } from "react-navigation";
+import Loading from "../Compoents/Loading";
 
 const fetchData = () => {
   return new Promise((resolve, reject) => {
@@ -23,7 +24,8 @@ const fetchData = () => {
 
 class ListOptions extends Component {
   state = {
-    data: []
+    data: [],
+    isLoaded: false
   };
 
   componentDidMount() {
@@ -31,7 +33,8 @@ class ListOptions extends Component {
     fetchData(Jsondata)
       .then(res =>
         this.setState({
-          data: res
+          data: res,
+          isLoaded: true
         })
       )
       .catch();
@@ -54,50 +57,63 @@ class ListOptions extends Component {
     const { data } = this.state;
     return (
       <View style={styles.container}>
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {data.map((data, i) => (
-            <TouchableOpacity
-              key={i}
-              onPressIn={this.onClick}
-              style={styles.listWrapper}
-              activeOpacity={0.4}
-            >
-              <Image
-                style={styles.imgStyle}
-                source={this.setImage(data.gender)}
-              />
-              <View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    PIN: <Text style={styles.subTitle}>{data.pin}</Text>
-                  </Text>
-                  <Text style={styles.title}>
-                    VOUCHER: <Text style={styles.subTitle}>{data.voucher}</Text>
-                  </Text>
+        {this.state.isLoaded ? (
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            {data.map((data, i) => (
+              <TouchableOpacity
+                key={i}
+                onPress={this.onClick}
+                style={styles.listWrapper}
+                //activeOpacity={0.}
+              >
+                <Image
+                  style={styles.imgStyle}
+                  source={this.setImage(data.gender)}
+                />
+                <View style={{ flex: 1 }}>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      PIN: <Text style={styles.subTitle}>{data.pin}</Text>
+                    </Text>
+                    <Text style={styles.title}>
+                      VOUCHER:{" "}
+                      <Text style={styles.subTitle}>{data.voucher}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      Name : <Text style={styles.subTitle}>{data.name}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      AGE: <Text style={styles.subTitle}>{data.age} Y</Text>
+                    </Text>
+                    <Text style={styles.title}>
+                      GENDER: <Text style={styles.subTitle}>{data.gender}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      LOCATION :{" "}
+                      <Text style={styles.subTitle}>{data.location}</Text>
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    Name : <Text style={styles.subTitle}>{data.name}</Text>
-                  </Text>
+                <View style={styles.tagWrapper}>
+                  <View style={[styles.tag, { backgroundColor: "orange" }]}>
+                    <Text style={styles.tagText}>CSH</Text>
+                  </View>
+                  <View style={[styles.tag, { backgroundColor: "tomato" }]}>
+                    <Text style={styles.tagText}>REF</Text>
+                  </View>
                 </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    AGE: <Text style={styles.subTitle}>{data.age} Y</Text>
-                  </Text>
-                  <Text style={styles.title}>
-                    GENDER: <Text style={styles.subTitle}>{data.gender}</Text>
-                  </Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    LOCATION :{" "}
-                    <Text style={styles.subTitle}>{data.location}</Text>
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        ) : (
+          <Loading />
+        )}
       </View>
     );
   }
@@ -135,10 +151,26 @@ const styles = StyleSheet.create({
     marginHorizontal: 4
   },
   subTitle: {
-    fontSize: hp("2%"),
+    fontSize: hp("2.1%"),
     color: "grey",
     marginHorizontal: 4
+  },
+  tagWrapper: {
+    alignItems: "flex-end",
+    paddingLeft: 8
+  },
+  tag: {
+    paddingHorizontal: 12,
+    paddingVertical: 2,
+    marginVertical: 4,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  tagText: {
+    color: "#fff",
+    fontSize: hp("2%")
   }
 });
 
-export default ListOptions;
+export default withNavigation(ListOptions);

@@ -2,16 +2,16 @@ import {
   createMaterialTopTabNavigator,
   createAppContainer
 } from "react-navigation";
-import All from "./OPD_TabScreen/All";
-import Offline from "./OPD_TabScreen/Offline";
-import Online from "./OPD_TabScreen/Online";
+import All from "./IPD_TabScreen/All";
+import Refer from "./IPD_TabScreen/Refer";
+import Sharing from "./IPD_TabScreen/Sharing";
 import { colors } from "../Style/Colors";
 
-const OPD_TabBar = createMaterialTopTabNavigator(
+const IPD_TabBar = createMaterialTopTabNavigator(
   {
     All: All,
-    Offline: Offline,
-    Online: Online
+    Refer: Refer,
+    Sharing: Sharing
   },
   {
     tabBarOptions: {
@@ -29,4 +29,4 @@ const OPD_TabBar = createMaterialTopTabNavigator(
   }
 );
 
-export default createAppContainer(OPD_TabBar);
+export default createAppContainer(IPD_TabBar);

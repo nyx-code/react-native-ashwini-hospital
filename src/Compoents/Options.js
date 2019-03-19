@@ -5,18 +5,13 @@ import { withNavigation } from "react-navigation";
 import { wp, hp } from "../Style/responsive";
 
 class Options extends Component {
-  onClick = () => {
-    this.props.navigation.navigate("OPD_TabBar");
-  };
-
   render() {
     const { name, imgPath, no } = this.props;
-    console.log("options render");
     return (
       <TouchableOpacity
         activeOpacity={0.4}
         style={styles.container}
-        onPress={this.onClick}
+        onPress={this.props.onClick}
       >
         <Image style={styles.img} source={imgPath} />
         <Text style={styles.name}> {name} </Text>
@@ -30,7 +25,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.whiteColor,
     padding: 10,
-    elevation: 1,
     alignItems: "center",
     width: wp("50%"),
     height: hp("26%"),

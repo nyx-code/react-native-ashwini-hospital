@@ -8,15 +8,15 @@ export const Jsondata = [
     location: "wagholi"
   },
   {
-    pin: 21192923,
-    voucher: 1112434,
+    pin: 211929,
+    voucher: 119434,
     name: "Shailesh Kadam",
     age: 18,
     gender: "MALE",
     location: "Hadapasar"
   },
   {
-    pin: 92023,
+    pin: 992023,
     voucher: 282034,
     name: "Pranav Bhatnagar",
     age: 20,
@@ -24,7 +24,7 @@ export const Jsondata = [
     location: "Fursungi"
   },
   {
-    pin: 40392,
+    pin: 403929,
     voucher: 201889,
     name: "Shubham Tendulkar",
     age: 21,
@@ -40,16 +40,16 @@ export const Jsondata = [
     location: "wagholi"
   },
   {
-    pin: 923,
-    voucher: 1334,
+    pin: 923890,
+    voucher: 137934,
     name: "Bahubali",
     age: 20,
     gender: "MALE",
     location: "shevnagar"
   },
   {
-    pin: 2000,
-    voucher: 234,
+    pin: 20080,
+    voucher: 238984,
     name: "Kohinur",
     age: 10,
     gender: "FEMALE",
