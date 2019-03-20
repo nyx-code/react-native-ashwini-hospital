@@ -33,7 +33,6 @@ class Login extends Component {
 
   render() {
     const { passwordTextEntry } = this.state;
-    console.log("loginssss render");
     return (
       <View style={styles.container}>
         <Header text="DOCTOR LOGIN" />
@@ -59,7 +58,11 @@ class Login extends Component {
               size={20}
             />
           </View>
-          <TouchableOpacity onPress={this.onLogin} style={styles.buttonWrapper}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={this.onLogin}
+            style={styles.buttonWrapper}
+          >
             <Text style={styles.loginText}>LOGIN</Text>
           </TouchableOpacity>
         </View>

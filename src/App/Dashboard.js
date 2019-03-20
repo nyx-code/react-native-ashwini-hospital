@@ -3,25 +3,9 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Header from "../Compoents/Header";
 
 export class Dashboard extends Component {
-  static navigationOptions = {
-    title: "Dashboard",
-    headerTintColor: colors.primaryColor,
-    headerTitleStyle: {
-      fontWeight: "bold"
-    },
-    headerRight: (
-      <Icon
-        style={{ marginRight: 10 }}
-        name="logout"
-        size={24}
-        color={colors.primaryColor}
-      />
-    )
-  };
-
   onOPD = () => {
     this.props.navigation.navigate("OPD_TabBar");
   };
@@ -33,6 +17,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <View styles={styles.container}>
+        <Header text="Dashboard" />
         <View style={styles.profile}>
           <Image
             style={styles.imgStyle}

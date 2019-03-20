@@ -9,7 +9,7 @@ class Options extends Component {
     const { name, imgPath, no } = this.props;
     return (
       <TouchableOpacity
-        activeOpacity={0.4}
+        activeOpacity={0.8}
         style={styles.container}
         onPress={this.props.onClick}
       >

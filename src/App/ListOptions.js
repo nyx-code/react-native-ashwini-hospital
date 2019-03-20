@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import {
   View,
   Text,
@@ -8,113 +8,92 @@ import {
   TouchableOpacity
 } from "react-native";
 import { colors } from "../Style/Colors";
-import { Jsondata } from "./dummy";
 import { hp } from "../Style/responsive";
 import { withNavigation } from "react-navigation";
 import Loading from "../Compoents/Loading";
+import { unstable_createResource as createResource } from "react-cache";
 
-const fetchData = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(Jsondata);
-      reject("Data cannot be fetch");
-    });
-  }, 500);
-};
+const getData = () =>
+  fetch("http://wwacoman.com/oss/opd/SMR").then(res => res.json());
 
-class ListOptions extends Component {
-  state = {
-    data: [],
-    isLoaded: false
+const ApiResource = createResource(getData);
+
+const List = props => {
+  const onClick = () => {
+    props.navigation.navigate("PatientProfile");
   };
 
-  componentDidMount() {
-    console.log("did it");
-    fetchData(Jsondata)
-      .then(res =>
-        this.setState({
-          data: res,
-          isLoaded: true
-        })
-      )
-      .catch();
-  }
-
-  onClick = () => {
-    this.props.navigation.navigate("PatientProfile");
-  };
-
-  setImage(gender) {
-    if (gender === "MALE") {
+  const setImage = gender => {
+    if (gender === "M") {
       return require("../assets/MALE.png");
     } else {
       return require("../assets/FEMALE.png");
     }
-  }
+  };
 
+  const actualData = ApiResource.read();
+
+  return (
+    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      {actualData.map((data, i) => (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          key={i}
+          onPress={onClick}
+          style={styles.listWrapper}
+        >
+          <Image style={styles.imgStyle} source={setImage(data.GENDER)} />
+          <View style={{ flex: 1 }}>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                PIN: <Text style={styles.subTitle}>{data.REGNO}</Text>
+              </Text>
+              <Text style={styles.title}>
+                VOUCHER: <Text style={styles.subTitle}>{data.REFNO}</Text>
+              </Text>
+            </View>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                Name : <Text style={styles.subTitle}>{data.PAT_NAME}</Text>
+              </Text>
+            </View>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                AGE: <Text style={styles.subTitle}>{data.AGE} Y</Text>
+              </Text>
+              <Text style={styles.title}>
+                GENDER: <Text style={styles.subTitle}>{data.GENDER}</Text>
+              </Text>
+            </View>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                LOCATION : <Text style={styles.subTitle}>{data.LOC}</Text>
+              </Text>
+            </View>
+          </View>
+          {/* 
+          <View style={styles.tagWrapper}>
+            <View style={[styles.tag, { backgroundColor: "tomato" }]}>
+              <Text style={styles.tagText}>{data.PTYPE}</Text>
+            </View>
+            <View style={[styles.tag, { backgroundColor: "orange" }]}>
+              <Text style={styles.tagText}>{data.SMODE}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+           */}
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
+};
+
+class ListOptions extends Component {
   render() {
-    console.log("s bas render");
-    const { data } = this.state;
     return (
-      <View style={styles.container}>
-        {this.state.isLoaded ? (
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            {data.map((data, i) => (
-              <TouchableOpacity
-                key={i}
-                onPress={this.onClick}
-                style={styles.listWrapper}
-                //activeOpacity={0.}
-              >
-                <Image
-                  style={styles.imgStyle}
-                  source={this.setImage(data.gender)}
-                />
-                <View style={{ flex: 1 }}>
-                  <View style={styles.nameSection}>
-                    <Text style={styles.title}>
-                      PIN: <Text style={styles.subTitle}>{data.pin}</Text>
-                    </Text>
-                    <Text style={styles.title}>
-                      VOUCHER:{" "}
-                      <Text style={styles.subTitle}>{data.voucher}</Text>
-                    </Text>
-                  </View>
-                  <View style={styles.nameSection}>
-                    <Text style={styles.title}>
-                      Name : <Text style={styles.subTitle}>{data.name}</Text>
-                    </Text>
-                  </View>
-                  <View style={styles.nameSection}>
-                    <Text style={styles.title}>
-                      AGE: <Text style={styles.subTitle}>{data.age} Y</Text>
-                    </Text>
-                    <Text style={styles.title}>
-                      GENDER: <Text style={styles.subTitle}>{data.gender}</Text>
-                    </Text>
-                  </View>
-                  <View style={styles.nameSection}>
-                    <Text style={styles.title}>
-                      LOCATION :{" "}
-                      <Text style={styles.subTitle}>{data.location}</Text>
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.tagWrapper}>
-                  <View style={[styles.tag, { backgroundColor: "orange" }]}>
-                    <Text style={styles.tagText}>CSH</Text>
-                  </View>
-                  <View style={[styles.tag, { backgroundColor: "tomato" }]}>
-                    <Text style={styles.tagText}>REF</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        ) : (
-          <Loading />
-        )}
-      </View>
+      <Suspense fallback={<Loading />}>
+        <List />
+      </Suspense>
     );
   }
 }
@@ -125,8 +104,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey
   },
   imgStyle: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     alignSelf: "center"
   },
   listWrapper: {

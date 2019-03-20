@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import TabBar from "../Navigation/Profile_TabBar";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class PatientProfile extends Component {
   static navigationOptions = {
@@ -11,7 +11,16 @@ class PatientProfile extends Component {
     headerTintColor: colors.primaryColor,
     headerTitleStyle: {
       fontWeight: "bold"
-    }
+    },
+    headerRight: (
+      <Icon
+        onPress={() => this.props.navigation.navigate("Login")}
+        style={{ marginRight: 10 }}
+        name="logout"
+        size={24}
+        color={colors.primaryColor}
+      />
+    )
   };
   setImage(gender) {
     if (gender === "MALE") {

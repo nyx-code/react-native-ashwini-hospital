@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import Placeholder from "rn-placeholder";
+
 class Loading extends Component {
   render() {
     const data = new Array(10, 20, 30, 40, 50, 60, 70, 80);
@@ -13,6 +14,7 @@ class Loading extends Component {
               padding: 20,
               marginVertical: 2,
               marginHorizontal: 4,
+              elevation: 3,
               backgroundColor: "#fff"
             }}
           >
