@@ -23,19 +23,19 @@ const AppNavigation = createStackNavigator({
   OPD_TabBar: {
     screen: OPD_TabBar,
     navigationOptions: {
-      header: <Header isBack={true} text="OPD List" />
+      header: <Header isLogoutIcon={true} isBack={true} text="OPD List" />
     }
   },
   IPD_TabBar: {
     screen: IPD_TabBar,
     navigationOptions: {
-      header: <Header isBack={true} text="IPD List" />
+      header: <Header isLogoutIcon={true} isBack={true} text="IPD List" />
     }
   },
   PatientProfile: {
     screen: PatientProfile,
     navigationOptions: {
-      header: <Header isBack={true} text="Profile" />
+      header: <Header isLogoutIcon={true} isBack={true} text="Profile" />
     }
   }
 });

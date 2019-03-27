@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, SafeAreaView } from "react-native";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
@@ -17,7 +17,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <View styles={styles.container}>
-        <Header text="Dashboard" />
+        <Header text="Dashboard" isLogoutIcon={true} />
         <View style={styles.profile}>
           <Image
             style={styles.imgStyle}
@@ -79,20 +79,20 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   imgStyle: {
-    width: wp("16%"),
-    height: hp("10%")
+    width: wp("14%"), //16
+    height: hp("8%") //10
   },
   profileNameWrapper: {
     marginHorizontal: 20,
     justifyContent: "center"
   },
   name: {
-    fontSize: hp("2.8%"),
+    fontSize: hp("2.4%"), //2.8
     color: colors.whiteColor,
     marginVertical: 6
   },
   profession: {
-    fontSize: hp("2.6%"),
+    fontSize: hp("2.2%"), //2.6
     color: colors.lightGrey,
     textAlign: "center"
   },

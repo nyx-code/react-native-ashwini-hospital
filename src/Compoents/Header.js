@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { withNavigation } from "react-navigation";
@@ -14,9 +14,9 @@ class Header extends Component {
   };
 
   render() {
-    const { isBack, text } = this.props;
+    const { isBack, text, isLogoutIcon } = this.props;
     return (
-      <View>
+      <SafeAreaView>
         <View style={styles.container}>
           {isBack && (
             <Icon
@@ -29,14 +29,16 @@ class Header extends Component {
           <Text style={[styles.text, isBack && { marginLeft: 12 }]}>
             {text}
           </Text>
-          <Icon
-            onPress={this.onLogout}
-            name="logout"
-            size={24}
-            color={colors.primaryColor}
-          />
+          {isLogoutIcon && (
+            <Icon
+              onPress={this.onLogout}
+              name="logout"
+              size={24}
+              color={colors.primaryColor}
+            />
+          )}
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -46,7 +48,10 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: colors.whiteColor,
     elevation: 3,
-    flexDirection: "row"
+    flexDirection: "row",
+    shadowColor: "#333",
+    shadowOffset: { height: 3, width: 0 },
+    shadowOpacity: 0.3
   },
   text: {
     fontSize: 18,

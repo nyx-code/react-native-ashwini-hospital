@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
     height: hp("25%"),
     borderWidth: 0.5,
     borderColor: colors.lightGrey,
-    borderRadius: 10
+    borderRadius: 10,
+    shadowColor: "#333",
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 0.3
   },
   img: {
     width: wp("14%"),
@@ -41,14 +44,15 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   name: {
-    fontSize: hp("2.6%"),
+    fontSize: hp("2.2%"), //2.6
     color: "#333",
     fontWeight: "bold",
     marginVertical: 4
   },
   no: {
-    fontSize: hp("2.4%"),
-    fontWeight: "bold"
+    fontSize: hp("2%"), //2.4
+    fontWeight: "bold",
+    color: "grey"
   }
 });
 

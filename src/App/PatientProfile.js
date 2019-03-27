@@ -63,8 +63,10 @@ class PatientProfile extends Component {
               <Text style={styles.title}>
                 GENDER : <Text style={styles.subtitle}>{data.GENDER}</Text>
               </Text>
+            </View>
+            <View style={styles.nameSection}>
               <Text style={styles.title}>
-                TYPE : <Text style={styles.subtitle}> OPD</Text>
+                LOCATION : <Text style={styles.subtitle}>{data.LOC}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryColor,
     margin: 10,
     borderRadius: 10,
-    padding: 20,
+    padding: 10,
     flexDirection: "row",
     height: hp("22%"),
     marginBottom: 10,
@@ -111,11 +113,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.whiteColor,
-    fontSize: hp("2.2%"),
+    fontSize: hp("1.9%"), //2.2
     marginHorizontal: 8
   },
   subtitle: {
-    fontSize: hp("2.1%"),
+    fontSize: hp("1.8%"), //2.1
     color: colors.lightGrey
   }
 });

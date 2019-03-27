@@ -13,13 +13,12 @@ import { hp } from "../Style/responsive";
 import { withNavigation } from "react-navigation";
 import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
-
-const ApiResource = createResource(code => {
-  return fetch(`http://wwacoman.com/oss/${code}/SMR`).then(res => res.json());
-});
-
-const List = props => {
-  const setImage = gender => {
+import Loading from "../Compoents/Loading";
+class List extends React.Component {
+  state = {
+    data: []
+  };
+  setImage = gender => {
     if (gender === "M") {
       return require("../assets/MALE.png");
     } else {
@@ -27,17 +26,7 @@ const List = props => {
     }
   };
 
-  const { type, typeMode, code } = props;
-
-  let data = ApiResource.read(code);
-
-  if (data) {
-    if (type) {
-      data = data.filter(e => e.SMODE === typeMode);
-    }
-  }
-
-  const setString = string => {
+  setString = string => {
     if (string === "REF") {
       return "REFER BY";
     } else {
@@ -45,105 +34,122 @@ const List = props => {
     }
   };
 
-  return (
-    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-      {data.length > 0 ? (
-        <FlatList
-          data={data}
-          keyExtractor={data => data.REFNO}
-          initialNumToRender={8}
-          maxToRenderPerBatch={2}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                props.navigation.navigate("PatientProfile", {
-                  item
-                });
-              }}
-              style={styles.listWrapper}
-            >
-              <Image style={styles.imgStyle} source={setImage(item.GENDER)} />
-              <View style={{ flex: 1 }}>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    PIN: <Text style={styles.subTitle}>{item.REGNO}</Text>
-                  </Text>
-                  <Text style={styles.title}>
-                    VOUCHER:{" "}
-                    <Text style={styles.subTitle}>
-                      {item.REFNO || item.IPDNO}
-                    </Text>
-                  </Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    Name : <Text style={styles.subTitle}>{item.PAT_NAME}</Text>
-                  </Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    AGE: <Text style={styles.subTitle}>{item.AGE} Y</Text>
-                  </Text>
-                  <Text style={styles.title}>
-                    GENDER: <Text style={styles.subTitle}>{item.GENDER}</Text>
-                  </Text>
-                  <View style={styles.tagWrapper}>
-                    <View
-                      style={[
-                        styles.tag,
-                        { backgroundColor: setPTYPEColor(item.PTYPE) }
-                      ]}
-                    >
-                      <Text style={styles.tagText}>{item.PTYPE}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>
-                    LOCATION : <Text style={styles.subTitle}>{item.LOC}</Text>
-                  </Text>
-                  <View style={styles.tagWrapper}>
-                    <View
-                      style={[
-                        styles.tag,
-                        { backgroundColor: setSMODEColor(item.SMODE) }
-                      ]}
-                    >
-                      <Text style={styles.tagText}>
-                        {item.SMODE.substr(0, 6)}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                {type && (
+  componentDidMount = () => {
+    this.fetchData();
+  };
+
+  fetchData = async () => {
+    const response = await fetch(`http://wwacoman.com/oss/opd/SMR`);
+    const json = await response.json();
+    this.setState({
+      data: json
+    });
+  };
+
+  render() {
+    let { data } = this.state;
+    const { type, typeMode, code } = this.props;
+
+    if (data) {
+      if (type) {
+        data = data.filter(e => e.SMODE === typeMode);
+      }
+    }
+
+    return (
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        {data.length > 0 ? (
+          <FlatList
+            data={data}
+            keyExtractor={data => data.REFNO}
+            initialNumToRender={8}
+            maxToRenderPerBatch={2}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  this.props.navigation.navigate("PatientProfile", {
+                    item
+                  });
+                }}
+                style={styles.listWrapper}
+              >
+                <Image
+                  style={styles.imgStyle}
+                  source={this.setImage(item.GENDER)}
+                />
+                <View style={{ flex: 1 }}>
                   <View style={styles.nameSection}>
                     <Text style={styles.title}>
-                      {setString(data.SMODE)} :
-                      <Text style={styles.subTitle}> {item.OTHDOC}</Text>
+                      PIN: <Text style={styles.subTitle}>{item.REGNO}</Text>
+                    </Text>
+                    <Text style={styles.title}>
+                      VOUCHER:{" "}
+                      <Text style={styles.subTitle}>
+                        {item.REFNO || item.IPDNO}
+                      </Text>
                     </Text>
                   </View>
-                )}
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      ) : (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <Text style={{ fontSize: 20, color: colors.lightGrey }}>
-            No Data Found
-          </Text>
-        </View>
-      )}
-    </ScrollView>
-  );
-};
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      Name :{" "}
+                      <Text style={styles.subTitle}>{item.PAT_NAME}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      AGE: <Text style={styles.subTitle}>{item.AGE} Y</Text>
+                    </Text>
+                    <Text style={styles.title}>
+                      GENDER: <Text style={styles.subTitle}>{item.GENDER}</Text>
+                    </Text>
+                    <View style={styles.tagWrapper}>
+                      <View
+                        style={[
+                          styles.tag,
+                          { backgroundColor: setPTYPEColor(item.PTYPE) }
+                        ]}
+                      >
+                        <Text style={styles.tagText}>{item.PTYPE}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.title}>
+                      LOCATION : <Text style={styles.subTitle}>{item.LOC}</Text>
+                    </Text>
+                    <View style={styles.tagWrapper}>
+                      <View
+                        style={[
+                          styles.tag,
+                          { backgroundColor: setSMODEColor(item.SMODE) }
+                        ]}
+                      >
+                        <Text style={styles.tagText}>
+                          {item.SMODE.substr(0, 6)}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  {type && (
+                    <View style={styles.nameSection}>
+                      <Text style={styles.title}>
+                        {this.setString(data.SMODE)} :
+                        <Text style={styles.subTitle}> {item.OTHDOC}</Text>
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <Loading />
+        )}
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -161,7 +167,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 2,
     marginHorizontal: 4,
-    elevation: 3
+    elevation: 3,
+    shadowColor: "#333",
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 0.3
   },
   detailsWrapper: {
     padding: 6
@@ -173,11 +182,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#333",
-    fontSize: hp("2.1%"),
+    fontSize: hp("1.9%"), //2.1
     marginHorizontal: 4
   },
   subTitle: {
-    fontSize: hp("2%"),
+    fontSize: hp("1.8%"), //2
     color: "grey",
     marginHorizontal: 4
   },
@@ -196,7 +205,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: "#fff",
-    fontSize: hp("2%")
+    fontSize: hp("1.8%") //2
   }
 });
 

@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
@@ -79,11 +80,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   img: {
-    width: wp("20%"),
-    height: hp("20%")
+    width: wp("18%"),
+    height: hp("18%")
   },
   quote: {
-    fontSize: hp("2.4%"),
+    fontSize: hp("2%"), //2.4
     fontWeight: "bold",
     color: "#333"
   },
@@ -96,12 +97,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: wp("80%"),
     alignSelf: "center",
-    borderColor: colors.lightGrey
+    borderColor: colors.lightGrey,
+    shadowColor: "black",
+    shadowOffset: { height: 1, width: 0 },
+    shadowOpacity: 0.5
   },
   userNameWrapper: {
     borderBottomWidth: 1,
-    marginVertical: 10,
-    borderBottomColor: colors.primaryColor
+    marginVertical: 20,
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -112,7 +117,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2.2%")
+    fontSize: hp("2%") //2.2
   }
 });
 
