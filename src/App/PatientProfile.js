@@ -23,7 +23,7 @@ class PatientProfile extends Component {
     )
   };
   setImage(gender) {
-    if (gender === "MALE") {
+    if (gender === "M") {
       return require("../assets/MALE.png");
     } else {
       return require("../assets/FEMALE.png");
@@ -31,41 +31,45 @@ class PatientProfile extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+    const data = navigation.getParam("item");
+    console.log("Data :" + JSON.stringify(data));
+
     return (
       <View style={styles.container}>
         <View style={styles.profileWrapper}>
           <View style={styles.imgContainer}>
-            <Image style={styles.img} source={this.setImage("FEMALE")} />
+            <Image style={styles.img} source={this.setImage(data.GENDER)} />
           </View>
           <View style={styles.infoWrapper}>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                PIN : <Text style={styles.subtitle}> 52900</Text>
+                PIN : <Text style={styles.subtitle}>{data.REGNO}</Text>
               </Text>
               <Text style={styles.title}>
-                VOUCHER : <Text style={styles.subtitle}> 200</Text>
+                VOUCHER :{" "}
+                <Text style={styles.subtitle}> {data.REFNO || data.IPDNO}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                NAME :{" "}
-                <Text style={styles.subtitle}> Vrushali Nitin Mandge</Text>
+                NAME : <Text style={styles.subtitle}> {data.PAT_NAME}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                AGE : <Text style={styles.subtitle}> 20 Y</Text>
+                AGE : <Text style={styles.subtitle}> {data.AGE} Y</Text>
               </Text>
               <Text style={styles.title}>
-                GENDER : <Text style={styles.subtitle}> FEMALE</Text>
+                GENDER : <Text style={styles.subtitle}>{data.GENDER}</Text>
               </Text>
-            </View>
-            <View style={styles.nameSection}>
               <Text style={styles.title}>
                 TYPE : <Text style={styles.subtitle}> OPD</Text>
               </Text>
+            </View>
+            <View style={styles.nameSection}>
               <Text style={styles.title}>
-                DR : <Text style={styles.subtitle}> Shaileh Nitin kadam</Text>
+                DR : <Text style={styles.subtitle}>{data.CONDOC}</Text>
               </Text>
             </View>
           </View>
@@ -94,8 +98,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   img: {
-    width: wp("16%"),
-    height: hp("10%")
+    width: 50,
+    height: 50
   },
   infoWrapper: {
     justifyContent: "center"
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8
   },
   subtitle: {
-    fontSize: hp("2%"),
+    fontSize: hp("2.1%"),
     color: colors.lightGrey
   }
 });

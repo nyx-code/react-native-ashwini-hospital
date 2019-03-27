@@ -1,7 +1,6 @@
 import React from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import Dashboard from "../App/Dashboard";
-import { colors } from "../Style/Colors";
 import PatientProfile from "../App/PatientProfile";
 import Login from "../App/Login";
 import OPD_TabBar from "../Navigation/OPD_TabBar";

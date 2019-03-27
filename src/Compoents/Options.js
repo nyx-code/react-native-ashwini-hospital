@@ -24,16 +24,19 @@ class Options extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.whiteColor,
-    padding: 10,
     alignItems: "center",
-    width: wp("50%"),
-    height: hp("26%"),
-    borderWidth: 0.4,
-    borderColor: colors.lightGrey
+    width: wp("45%"),
+    margin: 8,
+    elevation: 0.8,
+    justifyContent: "center",
+    height: hp("25%"),
+    borderWidth: 0.5,
+    borderColor: colors.lightGrey,
+    borderRadius: 10
   },
   img: {
     width: wp("14%"),
-    height: hp("12%"),
+    height: hp("10%"),
     marginVertical: 4,
     resizeMode: "contain"
   },

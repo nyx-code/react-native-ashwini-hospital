@@ -24,7 +24,7 @@ export class Dashboard extends Component {
             source={require("../assets/doctor.png")}
           />
           <View style={styles.profileNameWrapper}>
-            <Text style={styles.name}>DR. Shailesh Kadam</Text>
+            <Text style={styles.name}>DR. Rudrakshi Siddheshwar M.</Text>
             <Text style={styles.profession}>MEDICINE</Text>
           </View>
         </View>
@@ -97,9 +97,9 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   dashboard: {
-    backgroundColor: colors.primaryColor,
     justifyContent: "center",
     alignItems: "center"
+    //backgroundColor: colors.lightGrey
   },
   dashboardOptions: {
     flexDirection: "row"

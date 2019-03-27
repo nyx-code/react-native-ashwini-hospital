@@ -1,19 +1,13 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native";
+import React, { Suspense } from "react";
+import List from "../../Compoents/List";
+import Loading from "../../Compoents/Loading";
 
-class All extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <View>
-        <Text> Hello </Text>
-      </View>
-    );
-  }
-}
+const All = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <List code="ipd" />
+    </Suspense>
+  );
+};
 
 export default All;

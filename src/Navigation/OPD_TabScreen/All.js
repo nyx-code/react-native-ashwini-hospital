@@ -1,10 +1,13 @@
-import React, { Component } from "react";
-import ListOptions from "../../App/ListOptions";
+import React, { Suspense } from "react";
+import List from "../../Compoents/List";
+import Loading from "../../Compoents/Loading";
 
-class All extends Component {
-  render() {
-    return <ListOptions />;
-  }
-}
+const All = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <List code="opd" />
+    </Suspense>
+  );
+};
 
 export default All;
