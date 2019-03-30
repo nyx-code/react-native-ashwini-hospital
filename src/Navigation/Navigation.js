@@ -13,6 +13,7 @@ import Header from "../Compoents/Header";
 import Login from "../App/Login";
 import Admin from "../App/Admin";
 import FetchScreen from "../App/FetchScreen";
+import Discharge from "../Navigation/Discharge";
 
 const AuthNavigation = createStackNavigator({
   Login: {
@@ -58,6 +59,12 @@ const AppNavigation = createStackNavigator({
     screen: PatientProfile,
     navigationOptions: {
       header: <Header isLogoutIcon={true} isBack={true} text="Profile" />
+    }
+  },
+  Discharge: {
+    screen: Discharge,
+    navigationOptions: {
+      header: <Header text="Discharge" isLogoutIcon={true} isBack={true} />
     }
   }
 });

@@ -18,6 +18,10 @@ export class Dashboard extends Component {
     this.props.navigation.navigate("IPD_TabBar");
   };
 
+  onDischarge = () => {
+    this.props.navigation.navigate("Discharge");
+  };
+
   componentDidMount = async () => {
     try {
       const value = await AsyncStorage.getItem("user-data");
@@ -65,10 +69,12 @@ export class Dashboard extends Component {
           <View style={styles.dashboardOptions}>
             <Options
               name="SCHEDULE"
+              onClick={() => alert("NOT IMPLEMENTED")}
               imgPath={require("../assets/Schedule.png")}
             />
             <Options
               name="DISCHARGE"
+              onClick={this.onDischarge}
               imgPath={require("../assets/Discharge.png")}
             />
           </View>

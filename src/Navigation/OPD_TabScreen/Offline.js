@@ -8,7 +8,7 @@ const Offline = () => {
     //   <List url="http://wwacoman.com/oss/opd/SMR" />
     // </Suspense>
     <View>
-      <Text>Hello</Text>
+      <Text>NOT IMPLEMENTED</Text>
     </View>
   );
 };

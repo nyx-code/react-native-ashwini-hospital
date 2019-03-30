@@ -15,7 +15,7 @@ import { withNavigation } from "react-navigation";
 import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
 import Loading from "../Compoents/Loading";
-import { getOPDList, getIPDList } from "./../api/config";
+import { getPatientList } from "./../api/config";
 class List extends React.Component {
   state = {
     data: []
@@ -43,19 +43,12 @@ class List extends React.Component {
       if (value !== null) {
         const { code } = this.props;
         const data = JSON.parse(value);
-        if (code === "opd") {
-          getOPDList(data.Code)
-            .then(data => {
-              this.setState({ data });
-            })
-            .catch(e => alert(JSON.stringify(e)));
-        } else if (code === "ipd") {
-          getIPDList(data.Code)
-            .then(data => {
-              this.setState({ data });
-            })
-            .catch(e => alert(JSON.stringify(e)));
-        }
+
+        getPatientList(code, data.Code)
+          .then(data => {
+            this.setState({ data });
+          })
+          .catch(e => alert(JSON.stringify(e)));
       }
     } catch (error) {
       console.log("Error while retriving data");

@@ -5,7 +5,7 @@ class Online extends Component {
   render() {
     return (
       <View>
-        <Text> Hello </Text>
+        <Text> NOT IMPLEMENTED </Text>
       </View>
     );
   }
