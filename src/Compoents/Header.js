@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  AsyncStorage
+} from "react-native";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { withNavigation } from "react-navigation";
@@ -10,7 +16,11 @@ class Header extends Component {
   };
 
   onLogout = () => {
-    this.props.navigation.navigate("Login");
+    AsyncStorage.removeItem("user-data")
+      .then(() => {
+        this.props.navigation.navigate("Login");
+      })
+      .catch(e => console.log("Error occured"));
   };
 
   render() {

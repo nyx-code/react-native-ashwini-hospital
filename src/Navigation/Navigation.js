@@ -1,19 +1,41 @@
 import React from "react";
-import { createAppContainer, createStackNavigator } from "react-navigation";
+import {
+  createAppContainer,
+  createStackNavigator,
+  createSwitchNavigator
+} from "react-navigation";
 import Dashboard from "../App/Dashboard";
 import PatientProfile from "../App/PatientProfile";
-import Login from "../App/Login";
+import DoctorLogin from "../App/DoctorLogin";
 import OPD_TabBar from "../Navigation/OPD_TabBar";
 import IPD_TabBar from "../Navigation/IPD_TabBar";
 import Header from "../Compoents/Header";
+import Login from "../App/Login";
+import Admin from "../App/Admin";
+import FetchScreen from "../App/FetchScreen";
 
-const AppNavigation = createStackNavigator({
+const AuthNavigation = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
       header: null
     }
   },
+  DoctorLogin: {
+    screen: DoctorLogin,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Admin: {
+    screen: Admin,
+    navigationOptions: {
+      header: null
+    }
+  }
+});
+
+const AppNavigation = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
     navigationOptions: {
@@ -40,6 +62,17 @@ const AppNavigation = createStackNavigator({
   }
 });
 
-const AppContainer = createAppContainer(AppNavigation);
+const Navigation = createSwitchNavigator(
+  {
+    Initial: FetchScreen,
+    Auth: AuthNavigation,
+    App: AppNavigation
+  },
+  {
+    initialRouteName: "Initial"
+  }
+);
+
+const AppContainer = createAppContainer(Navigation);
 
 export default AppContainer;

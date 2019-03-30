@@ -1,0 +1,188 @@
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity
+} from "react-native";
+import { wp, hp } from "../Style/responsive";
+import Header from "../Compoents/Header";
+import { colors } from "../Style/Colors";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Quote from "../Compoents/Quote";
+
+class Admin extends Component {
+  state = {
+    passwordTextEntry: true,
+    choiceText: "admin"
+  };
+
+  onPasswordTextEntry = () => {
+    this.setState(prevState => ({
+      passwordTextEntry: !prevState.passwordTextEntry
+    }));
+  };
+
+  //   shouldComponentUpdate(prevProps, prevState) {
+  //     return this.state.passwordTextEntry !== prevState.passwordTextEntry;
+  //   }
+
+  onLogin = () => {
+    alert(this.state.choiceText);
+    // this.props.navigation.navigate("Dashboard");
+  };
+
+  onAdmin = () => {
+    this.setState({
+      choiceText: "admin"
+    });
+  };
+
+  onHouseman = () => {
+    this.setState({
+      choiceText: "houseman"
+    });
+  };
+
+  render() {
+    const { passwordTextEntry, choiceText } = this.state;
+    return (
+      <View style={styles.container}>
+        <Header text="HOUSEMAN/ADMIN LOGIN" isBack={true} />
+        <Quote />
+        <View style={styles.loginWrapper}>
+          <View style={styles.userNameWrapper}>
+            <TextInput
+              autFocus={true}
+              style={styles.textInput}
+              placeholder="USERNAME"
+            />
+          </View>
+          <View style={styles.passwordWrapper}>
+            <TextInput
+              secureTextEntry={passwordTextEntry}
+              style={[styles.textInput, { flex: 1 }]}
+              placeholder="PASSWORD"
+            />
+            <Icon
+              onPress={this.onPasswordTextEntry}
+              style={styles.icon}
+              name={passwordTextEntry ? "eye-off" : "eye"}
+              color={colors.primaryColor}
+              size={20}
+            />
+          </View>
+          <View style={styles.choiceWrapper}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={this.onAdmin}
+              style={styles.choiceContainer}
+            >
+              <Icon
+                name={
+                  choiceText === "admin" ? "radiobox-marked" : "radiobox-blank"
+                }
+                size={20}
+                color={colors.primaryColor}
+              />
+              <Text style={styles.choiceText}>ADMIN</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={this.onHouseman}
+              style={styles.choiceContainer}
+            >
+              <Icon
+                name={
+                  choiceText === "houseman"
+                    ? "radiobox-marked"
+                    : "radiobox-blank"
+                }
+                size={20}
+                color={colors.primaryColor}
+              />
+              <Text style={styles.choiceText}>HOUSEMAN</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={this.onLogin}
+            style={styles.buttonWrapper}
+          >
+            <Text style={styles.loginText}>LOGIN</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  loginWrapper: {
+    backgroundColor: colors.whiteColor,
+    elevation: 1,
+    borderWidth: 0.4,
+    marginTop: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: wp("80%"),
+    alignSelf: "center",
+    borderColor: colors.lightGrey,
+    shadowColor: "black",
+    shadowOffset: { height: 1, width: 0 },
+    shadowOpacity: 0.5
+  },
+  userNameWrapper: {
+    borderBottomWidth: 1,
+    marginVertical: 20,
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
+  },
+  textInput: {
+    fontSize: hp("2%")
+  },
+  passwordWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    marginVertical: 10,
+    alignItems: "center",
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
+  },
+  icon: {
+    marginHorizontal: 8
+  },
+  buttonWrapper: {
+    backgroundColor: colors.primaryColor,
+    padding: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 20
+  },
+  loginText: {
+    color: colors.whiteColor,
+    fontSize: hp("2%") //2.2
+  },
+  choiceWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 8
+  },
+  choiceContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10
+  },
+  choiceText: {
+    fontSize: hp("1.9%"),
+    marginHorizontal: 8
+  }
+});
+
+export default Admin;

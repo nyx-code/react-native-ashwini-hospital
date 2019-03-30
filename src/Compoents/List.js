@@ -6,7 +6,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  AsyncStorage
 } from "react-native";
 import { colors } from "../Style/Colors";
 import { hp } from "../Style/responsive";
@@ -14,6 +15,7 @@ import { withNavigation } from "react-navigation";
 import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
 import Loading from "../Compoents/Loading";
+import { getOPDList, getIPDList } from "./../api/config";
 class List extends React.Component {
   state = {
     data: []
@@ -34,21 +36,35 @@ class List extends React.Component {
     }
   };
 
-  componentDidMount = () => {
-    this.fetchData();
-  };
+  componentDidMount = async () => {
+    try {
+      const value = await AsyncStorage.getItem("user-data");
 
-  fetchData = async () => {
-    const response = await fetch(`http://wwacoman.com/oss/opd/SMR`);
-    const json = await response.json();
-    this.setState({
-      data: json
-    });
+      if (value !== null) {
+        const { code } = this.props;
+        const data = JSON.parse(value);
+        if (code === "opd") {
+          getOPDList(data.Code)
+            .then(data => {
+              this.setState({ data });
+            })
+            .catch(e => alert(JSON.stringify(e)));
+        } else if (code === "ipd") {
+          getIPDList(data.Code)
+            .then(data => {
+              this.setState({ data });
+            })
+            .catch(e => alert(JSON.stringify(e)));
+        }
+      }
+    } catch (error) {
+      console.log("Error while retriving data");
+    }
   };
 
   render() {
     let { data } = this.state;
-    const { type, typeMode, code } = this.props;
+    const { type, typeMode } = this.props;
 
     if (data) {
       if (type) {
@@ -61,7 +77,7 @@ class List extends React.Component {
         {data.length > 0 ? (
           <FlatList
             data={data}
-            keyExtractor={data => data.REFNO}
+            keyExtractor={data => data.REGNO + data.SMODE + data.PTYPE}
             initialNumToRender={8}
             maxToRenderPerBatch={2}
             renderItem={({ item }) => (

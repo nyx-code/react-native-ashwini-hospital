@@ -15,7 +15,6 @@ class Options extends Component {
       >
         <Image style={styles.img} source={imgPath} />
         <Text style={styles.name}> {name} </Text>
-        <Text style={styles.no}>({no})</Text>
       </TouchableOpacity>
     );
   }

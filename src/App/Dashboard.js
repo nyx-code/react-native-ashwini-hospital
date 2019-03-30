@@ -1,17 +1,36 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Image, Text, AsyncStorage } from "react-native";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
 import Header from "../Compoents/Header";
 
 export class Dashboard extends Component {
+  state = {
+    data: {}
+  };
+
   onOPD = () => {
     this.props.navigation.navigate("OPD_TabBar");
   };
 
   onIPD = () => {
     this.props.navigation.navigate("IPD_TabBar");
+  };
+
+  componentDidMount = async () => {
+    try {
+      const value = await AsyncStorage.getItem("user-data");
+      if (value !== null) {
+        const data = JSON.parse(value);
+        // alert(data.DRNAME);
+        this.setState({ data });
+      } else {
+        this.props.navigation.navigate("Auth");
+      }
+    } catch (error) {
+      console.log("Error occured");
+    }
   };
 
   render() {
@@ -24,21 +43,21 @@ export class Dashboard extends Component {
             source={require("../assets/doctor.png")}
           />
           <View style={styles.profileNameWrapper}>
-            <Text style={styles.name}>DR. Rudrakshi Siddheshwar M.</Text>
-            <Text style={styles.profession}>MEDICINE</Text>
+            <Text style={styles.name}>
+              {this.state.data.PRENM} {this.state.data.DRNAME}
+            </Text>
+            <Text style={styles.profession}>{this.state.data.DEPARTMENT}</Text>
           </View>
         </View>
         <View style={styles.dashboard}>
           <View style={styles.dashboardOptions}>
             <Options
               name="OPD"
-              no={20}
               imgPath={require("../assets/OPD.png")}
               onClick={this.onOPD}
             />
             <Options
               name="IPD"
-              no={40}
               imgPath={require("../assets/IPD.png")}
               onClick={this.onIPD}
             />
@@ -46,12 +65,10 @@ export class Dashboard extends Component {
           <View style={styles.dashboardOptions}>
             <Options
               name="SCHEDULE"
-              no={20}
               imgPath={require("../assets/Schedule.png")}
             />
             <Options
               name="DISCHARGE"
-              no={11}
               imgPath={require("../assets/Discharge.png")}
             />
           </View>

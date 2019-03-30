@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { colors } from "../Style/Colors";
-import { wp, hp } from "../Style/responsive";
+import { hp } from "../Style/responsive";
 import TabBar from "../Navigation/Profile_TabBar";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
