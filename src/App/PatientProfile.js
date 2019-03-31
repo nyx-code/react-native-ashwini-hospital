@@ -4,6 +4,7 @@ import { colors } from "../Style/Colors";
 import { hp } from "../Style/responsive";
 import TabBar from "../Navigation/Profile_TabBar";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { setFontSize } from "../Compoents/SetSize";
 
 class PatientProfile extends Component {
   static navigationOptions = {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     flexDirection: "row",
-    height: hp("22%"),
+    height: hp("26%"), //22
     marginBottom: 10,
     overflow: "hidden"
   },
@@ -113,11 +114,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.whiteColor,
-    fontSize: hp("1.9%"), //2.2
+    fontSize: setFontSize("2.2", "1.9"), //2.2 //1.9
     marginHorizontal: 8
   },
   subtitle: {
-    fontSize: hp("1.8%"), //2.1
+    fontSize: setFontSize("2.1", "1.8"), //2.1 //1.8
     color: colors.lightGrey
   }
 });

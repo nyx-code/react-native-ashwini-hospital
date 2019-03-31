@@ -3,6 +3,7 @@ import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { colors } from "../Style/Colors";
 import { withNavigation } from "react-navigation";
 import { wp, hp } from "../Style/responsive";
+import { setFontSize } from "../Compoents/SetSize";
 
 class Options extends Component {
   render() {
@@ -43,13 +44,13 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   name: {
-    fontSize: hp("2.2%"), //2.6
+    fontSize: setFontSize("2.6", "2.2"), //2.6 //2.2
     color: "#333",
     fontWeight: "bold",
     marginVertical: 4
   },
   no: {
-    fontSize: hp("2%"), //2.4
+    fontSize: setFontSize("2.4", "2"), //2.4 //2
     fontWeight: "bold",
     color: "grey"
   }

@@ -11,6 +11,7 @@ import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
+import { setFontSize } from "../Compoents/SetSize";
 
 class Admin extends Component {
   state = {
@@ -24,13 +25,8 @@ class Admin extends Component {
     }));
   };
 
-  //   shouldComponentUpdate(prevProps, prevState) {
-  //     return this.state.passwordTextEntry !== prevState.passwordTextEntry;
-  //   }
-
   onLogin = () => {
     alert(this.state.choiceText);
-    // this.props.navigation.navigate("Dashboard");
   };
 
   onAdmin = () => {
@@ -139,8 +135,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    //paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -151,8 +147,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    // paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2%") //2.2
+    fontSize: setFontSize("2.2", "2") //2.2
   },
   choiceWrapper: {
     flexDirection: "row",
@@ -180,7 +176,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   choiceText: {
-    fontSize: hp("1.9%"),
+    fontSize: setFontSize("2.1", "1.9"), //1.9{ios}
     marginHorizontal: 8
   }
 });
