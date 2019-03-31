@@ -63,7 +63,6 @@ class DoctorLogin extends Component {
   };
 
   onChangeUsernameHandle = username => {
-    // alert(username);
     this.setState({
       username: username
     });
@@ -77,6 +76,7 @@ class DoctorLogin extends Component {
     return (
       <View style={styles.container}>
         <Header text="DOCTOR LOGIN" isBack={true} />
+<<<<<<< HEAD
         <ScrollView style={{ flex: 1 }}>
           <Quote />
           <View style={styles.loginWrapper}>
@@ -116,6 +116,47 @@ class DoctorLogin extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+=======
+        <Quote />
+        <View style={styles.loginWrapper}>
+          <View style={styles.userNameWrapper}>
+            <TextInput
+              autFocus={true}
+              style={styles.textInput}
+              placeholder="USERNAME"
+              onChangeText={username => this.onChangeUsernameHandle(username)}
+              value={this.state.username}
+            />
+          </View>
+          <View style={styles.passwordWrapper}>
+            <TextInput
+              secureTextEntry={passwordTextEntry}
+              style={[styles.textInput, { flex: 1 }]}
+              placeholder="PASSWORD"
+              onChangeText={password => this.onChangePasswordHandle(password)}
+              value={this.state.password}
+            />
+            <Icon
+              onPress={this.onPasswordTextEntry}
+              style={styles.icon}
+              name={passwordTextEntry ? "eye-off" : "eye"}
+              color={colors.primaryColor}
+              size={20}
+            />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={this.onLogin}
+            style={styles.buttonWrapper}
+          >
+            {this.state.isLoading ? (
+              <ActivityIndicator size="small" color={colors.whiteColor} />
+            ) : (
+              <Text style={styles.loginText}>LOGIN</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+>>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
       </View>
     );
   }

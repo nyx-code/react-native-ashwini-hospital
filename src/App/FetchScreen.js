@@ -1,9 +1,11 @@
 import React from "react";
 import { View, ActivityIndicator, AsyncStorage } from "react-native";
 import { colors } from "../Style/Colors";
+import SplashScreen from "react-native-splash-screen";
 
 export default class FetchScreen extends React.Component {
   componentDidMount = async () => {
+    SplashScreen.hide();
     try {
       const value = await AsyncStorage.getItem("user-data");
       if (value !== null) {
