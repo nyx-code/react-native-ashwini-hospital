@@ -45,12 +45,12 @@ const AppNavigation = createStackNavigator({
       header: null
     }
   },
-  DoctorList: {
-    screen: DoctorList,
-    navigationOptions: {
-      header: null
-    }
-  },
+  // DoctorList: {
+  //   screen: DoctorList,
+  //   navigationOptions: {
+  //     header: null
+  //   }
+  // },
   OPD_TabBar: {
     screen: OPD_TabBar,
     navigationOptions: {
@@ -74,13 +74,13 @@ const AppNavigation = createStackNavigator({
     navigationOptions: {
       header: <Header text="Discharge" isLogoutIcon={true} isBack={true} />
     }
-  },
-  HSManDashboard: {
-    screen: HSManDashboard,
-    navigationOptions: {
-      header: <Header text="DASHBOARD" isLogoutIcon={true} />
-    }
   }
+  // HSManDashboard: {
+  //   screen: HSManDashboard,
+  //   navigationOptions: {
+  //     header: <Header text="DASHBOARD" isLogoutIcon={true} />
+  //   }
+  // }
 });
 
 const Navigation = createSwitchNavigator(

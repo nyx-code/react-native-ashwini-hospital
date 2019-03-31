@@ -12,11 +12,11 @@ export default class FetchScreen extends React.Component {
         // alert("Data found")
         if (value === "doctor") {
           this.props.navigation.navigate("App");
-        } else {
+        } else if (value === "houseman") {
           this.props.navigation.navigate("DoctorList");
         }
       } else {
-        // alert("Data not found")
+        // alert("Data not found");
         this.props.navigation.navigate("Auth");
       }
     } catch (error) {

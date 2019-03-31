@@ -33,18 +33,24 @@ class Admin extends Component {
 
   onLogin = () => {
     const { username, password } = this.state;
-    this.setState({ isLoading: true });
-    toLogin(username, password, 2).then(res => {
-      if (res.Code) {
-        AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
-          AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
-            this.props.navigation.navigate("DoctorList");
-          });
-        });
-      } else {
-        alert("Username and Password is wrong!");
-      }
-    });
+    // this.setState({ isLoading: true });
+    alert("Houseman Login");
+    // this.props.navigation.navigate("Dashboard");
+
+    // toLogin(username, password, 2).then(res => {
+    //   // alert("Hii");
+
+    //   // if (res.Code) {
+    //   //   AsyncStorage.setItem("current-data", JSON.stringify(res)).then(() => {
+    //   //     AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+    //   //       // alert("Hii");
+    //   //       this.props.navigation.navigate("DoctorList");
+    //   //     });
+    //   //   });
+    //   // } else {
+    //   //   alert("Username and Password is wrong!");
+    //   // }
+    // });
   };
 
   onAdmin = () => {
