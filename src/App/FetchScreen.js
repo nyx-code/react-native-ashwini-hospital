@@ -7,10 +7,14 @@ export default class FetchScreen extends React.Component {
   componentDidMount = async () => {
     SplashScreen.hide();
     try {
-      const value = await AsyncStorage.getItem("user-data");
+      const value = await AsyncStorage.getItem("loggedin-user");
       if (value !== null) {
         // alert("Data found")
-        this.props.navigation.navigate("App");
+        if (value === "doctor") {
+          this.props.navigation.navigate("App");
+        } else {
+          this.props.navigation.navigate("DoctorList");
+        }
       } else {
         // alert("Data not found")
         this.props.navigation.navigate("Auth");

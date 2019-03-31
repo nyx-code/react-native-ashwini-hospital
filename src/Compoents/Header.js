@@ -18,7 +18,11 @@ class Header extends Component {
   onLogout = () => {
     AsyncStorage.removeItem("user-data")
       .then(() => {
-        this.props.navigation.navigate("Login");
+        AsyncStorage.removeItem("loggedin-user")
+          .then(() => {
+            this.props.navigation.navigate("Login");
+          })
+          .catch(e => console.log("Error occured"));
       })
       .catch(e => console.log("Error occured"));
   };

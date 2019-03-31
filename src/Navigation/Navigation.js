@@ -14,6 +14,7 @@ import Login from "../App/Login";
 import Admin from "../App/Admin";
 import FetchScreen from "../App/FetchScreen";
 import Discharge from "../Navigation/Discharge";
+import DoctorList from "../App/DoctorList";
 
 const AuthNavigation = createStackNavigator({
   Login: {
@@ -39,6 +40,12 @@ const AuthNavigation = createStackNavigator({
 const AppNavigation = createStackNavigator({
   Dashboard: {
     screen: Dashboard,
+    navigationOptions: {
+      header: null
+    }
+  },
+  DoctorList: {
+    screen: DoctorList,
     navigationOptions: {
       header: null
     }

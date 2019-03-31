@@ -5,14 +5,15 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
-
+import { toLogin } from "../api/config";
 class Admin extends Component {
   state = {
     passwordTextEntry: true,
@@ -29,7 +30,19 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-    alert(this.state.username + "  " + this.state.password);
+    const { username, password } = this.state;
+    this.setState({ isLoading: true });
+    toLogin(username, password, 2).then(res => {
+      if (res.Code) {
+        AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
+          AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+            this.props.navigation.navigate("DoctorList");
+          });
+        });
+      } else {
+        alert("Username and Password is wrong!");
+      }
+    });
   };
 
   onAdmin = () => {
