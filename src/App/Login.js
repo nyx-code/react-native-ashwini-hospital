@@ -3,7 +3,8 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import Header from "../Compoents/Header";
 import Quote from "../Compoents/Quote";
 import { colors } from "../Style/Colors";
-import { hp, wp } from "../Style/responsive";
+import { wp } from "../Style/responsive";
+import { setFontSize } from "../Compoents/SetSize";
 
 const Login = props => {
   const onDoctorLogin = () => {
@@ -19,11 +20,19 @@ const Login = props => {
       <Header text="ASHWINI HOSPITAL" />
       <Quote />
       <View style={styles.loginButtonWrapper}>
-        <TouchableOpacity onPress={onDoctorLogin} style={styles.buttonWrapper}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onDoctorLogin}
+          style={styles.buttonWrapper}
+        >
           <Text style={styles.text}>DOCTOR</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>OR</Text>
-        <TouchableOpacity onPress={onAdminLogin} style={styles.buttonWrapper}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onAdminLogin}
+          style={styles.buttonWrapper}
+        >
           <Text style={styles.text}>HOUSEMAN / ADMIN</Text>
         </TouchableOpacity>
       </View>
@@ -51,10 +60,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.whiteColor,
-    fontSize: hp("1.9%")
+    fontSize: setFontSize("2.1", "1.9")
   },
   orText: {
-    fontSize: hp("2%"),
+    fontSize: setFontSize("2.2", "2"),
     textAlign: "center",
     marginVertical: 10
   }

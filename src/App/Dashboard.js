@@ -4,6 +4,7 @@ import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
 import Header from "../Compoents/Header";
+import { setFontSize } from "../Compoents/SetSize";
 
 export class Dashboard extends Component {
   state = {
@@ -110,19 +111,18 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   name: {
-    fontSize: hp("2.4%"), //2.8
+    fontSize: setFontSize("2.8", "2.4"), //2.8 //2.4
     color: colors.whiteColor,
     marginVertical: 6
   },
   profession: {
-    fontSize: hp("2.2%"), //2.6
+    fontSize: setFontSize("2.6", "2.2"), //2.6 //2.2
     color: colors.lightGrey,
     textAlign: "center"
   },
   dashboard: {
     justifyContent: "center",
     alignItems: "center"
-    //backgroundColor: colors.lightGrey
   },
   dashboardOptions: {
     flexDirection: "row"

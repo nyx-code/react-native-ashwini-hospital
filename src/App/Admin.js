@@ -13,7 +13,12 @@ import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
+<<<<<<< HEAD
 import { toLogin } from "../api/config";
+=======
+import { setFontSize } from "../Compoents/SetSize";
+
+>>>>>>> 7560a7d7f1bf89278d0b32ad7f7da75b41d979d5
 class Admin extends Component {
   state = {
     passwordTextEntry: true,
@@ -30,6 +35,7 @@ class Admin extends Component {
   };
 
   onLogin = () => {
+<<<<<<< HEAD
     const { username, password } = this.state;
     this.setState({ isLoading: true });
     toLogin(username, password, 2).then(res => {
@@ -43,6 +49,13 @@ class Admin extends Component {
         alert("Username and Password is wrong!");
       }
     });
+=======
+<<<<<<< HEAD
+    alert(this.state.choiceText);
+=======
+    alert(this.state.username + "  " + this.state.password);
+>>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
+>>>>>>> 7560a7d7f1bf89278d0b32ad7f7da75b41d979d5
   };
 
   onAdmin = () => {
@@ -165,8 +178,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    //paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -177,8 +190,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    // paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
@@ -192,7 +205,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2%") //2.2
+    fontSize: setFontSize("2.2", "2") //2.2
   },
   choiceWrapper: {
     flexDirection: "row",
@@ -206,7 +219,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   choiceText: {
-    fontSize: hp("1.9%"),
+    fontSize: setFontSize("2.1", "1.9"), //1.9{ios}
     marginHorizontal: 8
   }
 });

@@ -16,6 +16,8 @@ import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
 import Loading from "../Compoents/Loading";
 import { getPatientList } from "./../api/config";
+import { setFontSize } from "../Compoents/SetSize";
+
 class List extends React.Component {
   state = {
     data: []
@@ -191,11 +193,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#333",
-    fontSize: hp("1.9%"), //2.1
+    fontSize: setFontSize("2.1", "1.9"),
     marginHorizontal: 4
   },
   subTitle: {
-    fontSize: hp("1.8%"), //2
+    fontSize: setFontSize("2.1", "1.9"),
     color: "grey",
     marginHorizontal: 4
   },
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: "#fff",
-    fontSize: hp("1.8%") //2
+    fontSize: setFontSize("2", "1.8") //2 //1.8
   }
 });
 

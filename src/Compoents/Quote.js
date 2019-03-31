@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { wp, hp } from "../Style/responsive";
+import { setFontSize } from "../Compoents/SetSize";
 
 const Quote = () => {
   return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     height: hp("18%")
   },
   quote: {
-    fontSize: hp("2%"), //2.4
+    fontSize: setFontSize("2.4", "2"), //2.4 //2
     fontWeight: "bold",
     color: "#333"
   }

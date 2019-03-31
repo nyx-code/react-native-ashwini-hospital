@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
@@ -14,6 +15,7 @@ import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
 import { toLogin } from "./../api/config";
+import { setFontSize } from "../Compoents/SetSize";
 
 class DoctorLogin extends Component {
   state = {
@@ -72,6 +74,47 @@ class DoctorLogin extends Component {
     return (
       <View style={styles.container}>
         <Header text="DOCTOR LOGIN" isBack={true} />
+<<<<<<< HEAD
+        <ScrollView style={{ flex: 1 }}>
+          <Quote />
+          <View style={styles.loginWrapper}>
+            <View style={styles.userNameWrapper}>
+              <TextInput
+                autFocus={true}
+                style={styles.textInput}
+                placeholder="USERNAME"
+                onChangeText={username => this.onChangeUsernameHandle(username)}
+              />
+            </View>
+            <View style={styles.passwordWrapper}>
+              <TextInput
+                secureTextEntry={passwordTextEntry}
+                style={[styles.textInput, { flex: 1 }]}
+                placeholder="PASSWORD"
+                onChangeText={password => this.onChangePasswordHandle(password)}
+              />
+              <Icon
+                onPress={this.onPasswordTextEntry}
+                style={styles.icon}
+                name={passwordTextEntry ? "eye-off" : "eye"}
+                color={colors.primaryColor}
+                size={20}
+              />
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={this.onLogin}
+              style={styles.buttonWrapper}
+            >
+              {this.state.isLoading ? (
+                <ActivityIndicator size="small" color={colors.whiteColor} />
+              ) : (
+                <Text style={styles.loginText}>LOGIN</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+=======
         <Quote />
         <View style={styles.loginWrapper}>
           <View style={styles.userNameWrapper}>
@@ -111,6 +154,7 @@ class DoctorLogin extends Component {
             )}
           </TouchableOpacity>
         </View>
+>>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
       </View>
     );
   }
@@ -137,8 +181,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    // paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -149,8 +193,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    // paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
@@ -164,7 +208,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2%") //2.2
+    fontSize: setFontSize("2.2", "2") //2.2 //2
   }
 });
 
