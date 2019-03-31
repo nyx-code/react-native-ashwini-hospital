@@ -113,10 +113,7 @@ class DoctorLogin extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-<<<<<<< HEAD
-        =======
-=======
->>>>>>> 5ff77798d384ce2f4dc8c935af08c0a67fed33b3
+
         <Quote />
         <View style={styles.loginWrapper}>
           <View style={styles.userNameWrapper}>
@@ -156,7 +153,6 @@ class DoctorLogin extends Component {
             )}
           </TouchableOpacity>
         </View>
-        >>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
       </View>
     );
   }
@@ -183,8 +179,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor
-    // paddingVertical: 14
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -195,8 +191,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor
-    // paddingVertical: 14
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8

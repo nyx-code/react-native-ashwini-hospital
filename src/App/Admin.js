@@ -32,9 +32,6 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-<<<<<<< HEAD
-    alert(this.state.choiceText);
-=======
     const { username, password } = this.state;
     this.setState({ isLoading: true });
     toLogin(username, password, 2).then(res => {
@@ -48,11 +45,6 @@ class Admin extends Component {
         alert("Username and Password is wrong!");
       }
     });
-
-    alert(this.state.choiceText);
-
->>>>>>> 5ff77798d384ce2f4dc8c935af08c0a67fed33b3
-    alert(this.state.username + "  " + this.state.password);
   };
 
   onAdmin = () => {
@@ -175,8 +167,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor
-    //paddingVertical: 14
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -187,8 +179,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor
-    // paddingVertical: 14
+    borderBottomColor: colors.primaryColor,
+    paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
