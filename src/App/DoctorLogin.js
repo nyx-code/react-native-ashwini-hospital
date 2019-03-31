@@ -42,12 +42,10 @@ class DoctorLogin extends Component {
         this.setState({ isLoading: false });
 
         if (res.Code) {
-          // const data = {
-          //   name: res.DRNAME
-          // };
-          //TODO: use localstorage for login
           AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
-            this.props.navigation.navigate("App");
+            AsyncStorage.setItem("loggedin-user", "doctor").then(() => {
+              this.props.navigation.navigate("App");
+            });
           });
         } else {
           alert("Username and Password is wrong!");
@@ -115,7 +113,10 @@ class DoctorLogin extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+<<<<<<< HEAD
         =======
+=======
+>>>>>>> 5ff77798d384ce2f4dc8c935af08c0a67fed33b3
         <Quote />
         <View style={styles.loginWrapper}>
           <View style={styles.userNameWrapper}>

@@ -5,13 +5,15 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
+import { toLogin } from "../api/config";
 import { setFontSize } from "../Compoents/SetSize";
 
 class Admin extends Component {
@@ -30,7 +32,26 @@ class Admin extends Component {
   };
 
   onLogin = () => {
+<<<<<<< HEAD
     alert(this.state.choiceText);
+=======
+    const { username, password } = this.state;
+    this.setState({ isLoading: true });
+    toLogin(username, password, 2).then(res => {
+      if (res.Code) {
+        AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
+          AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+            this.props.navigation.navigate("DoctorList");
+          });
+        });
+      } else {
+        alert("Username and Password is wrong!");
+      }
+    });
+
+    alert(this.state.choiceText);
+
+>>>>>>> 5ff77798d384ce2f4dc8c935af08c0a67fed33b3
     alert(this.state.username + "  " + this.state.password);
   };
 
