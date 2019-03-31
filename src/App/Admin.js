@@ -30,11 +30,8 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-<<<<<<< HEAD
     alert(this.state.choiceText);
-=======
     alert(this.state.username + "  " + this.state.password);
->>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
   };
 
   onAdmin = () => {

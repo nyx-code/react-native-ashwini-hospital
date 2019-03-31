@@ -76,7 +76,6 @@ class DoctorLogin extends Component {
     return (
       <View style={styles.container}>
         <Header text="DOCTOR LOGIN" isBack={true} />
-<<<<<<< HEAD
         <ScrollView style={{ flex: 1 }}>
           <Quote />
           <View style={styles.loginWrapper}>
@@ -116,7 +115,7 @@ class DoctorLogin extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-=======
+        =======
         <Quote />
         <View style={styles.loginWrapper}>
           <View style={styles.userNameWrapper}>
@@ -156,7 +155,7 @@ class DoctorLogin extends Component {
             )}
           </TouchableOpacity>
         </View>
->>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
+        >>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
       </View>
     );
   }
