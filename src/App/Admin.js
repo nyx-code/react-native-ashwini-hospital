@@ -13,12 +13,9 @@ import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
-<<<<<<< HEAD
 import { toLogin } from "../api/config";
-=======
 import { setFontSize } from "../Compoents/SetSize";
 
->>>>>>> 7560a7d7f1bf89278d0b32ad7f7da75b41d979d5
 class Admin extends Component {
   state = {
     passwordTextEntry: true,
@@ -35,7 +32,6 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-<<<<<<< HEAD
     const { username, password } = this.state;
     this.setState({ isLoading: true });
     toLogin(username, password, 2).then(res => {
@@ -49,13 +45,10 @@ class Admin extends Component {
         alert("Username and Password is wrong!");
       }
     });
-=======
-<<<<<<< HEAD
+
     alert(this.state.choiceText);
-=======
+
     alert(this.state.username + "  " + this.state.password);
->>>>>>> f90e72f6d0df1aa46007457d5a715f06e620b890
->>>>>>> 7560a7d7f1bf89278d0b32ad7f7da75b41d979d5
   };
 
   onAdmin = () => {
