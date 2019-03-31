@@ -61,7 +61,6 @@ class DoctorLogin extends Component {
   };
 
   onChangeUsernameHandle = username => {
-    // alert(username);
     this.setState({
       username: username
     });
@@ -83,6 +82,7 @@ class DoctorLogin extends Component {
               style={styles.textInput}
               placeholder="USERNAME"
               onChangeText={username => this.onChangeUsernameHandle(username)}
+              value={this.state.username}
             />
           </View>
           <View style={styles.passwordWrapper}>
@@ -91,6 +91,7 @@ class DoctorLogin extends Component {
               style={[styles.textInput, { flex: 1 }]}
               placeholder="PASSWORD"
               onChangeText={password => this.onChangePasswordHandle(password)}
+              value={this.state.password}
             />
             <Icon
               onPress={this.onPasswordTextEntry}

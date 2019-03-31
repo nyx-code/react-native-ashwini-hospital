@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
@@ -15,7 +16,10 @@ import Quote from "../Compoents/Quote";
 class Admin extends Component {
   state = {
     passwordTextEntry: true,
-    choiceText: "admin"
+    choiceText: "houseman",
+    username: '',
+    password:'',
+    isLoading: false
   };
 
   onPasswordTextEntry = () => {
@@ -24,13 +28,10 @@ class Admin extends Component {
     }));
   };
 
-  //   shouldComponentUpdate(prevProps, prevState) {
-  //     return this.state.passwordTextEntry !== prevState.passwordTextEntry;
-  //   }
 
   onLogin = () => {
-    alert(this.state.choiceText);
-    // this.props.navigation.navigate("Dashboard");
+    alert(this.state.username + "  " + this.state.password)
+    
   };
 
   onAdmin = () => {
@@ -45,6 +46,13 @@ class Admin extends Component {
     });
   };
 
+  onChangeUsernameHandle = (username) => {
+    this.setState({username});
+  }
+
+  onChnagePasswordHandle = (password) => {
+    this.setState({password})
+  }
   render() {
     const { passwordTextEntry, choiceText } = this.state;
     return (
@@ -57,6 +65,8 @@ class Admin extends Component {
               autFocus={true}
               style={styles.textInput}
               placeholder="USERNAME"
+              onChangeText={(username)=> this.onChangeUsernameHandle(username)}
+              value={this.state.username}
             />
           </View>
           <View style={styles.passwordWrapper}>
@@ -64,6 +74,7 @@ class Admin extends Component {
               secureTextEntry={passwordTextEntry}
               style={[styles.textInput, { flex: 1 }]}
               placeholder="PASSWORD"
+              onChangeText={(password)=>this.onChnagePasswordHandle(password)}
             />
             <Icon
               onPress={this.onPasswordTextEntry}
@@ -110,7 +121,13 @@ class Admin extends Component {
             onPress={this.onLogin}
             style={styles.buttonWrapper}
           >
-            <Text style={styles.loginText}>LOGIN</Text>
+            {
+              this.state.isLoading ? (
+                <ActivityIndicator size="small" color={colors.whiteColor} />
+              ): (
+                <Text style={styles.loginText}>LOGIN</Text>
+              )
+            }
           </TouchableOpacity>
         </View>
       </View>
