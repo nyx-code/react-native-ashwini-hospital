@@ -32,9 +32,6 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-<<<<<<< HEAD
-    alert(this.state.choiceText);
-=======
     const { username, password } = this.state;
     this.setState({ isLoading: true });
     toLogin(username, password, 2).then(res => {
@@ -48,11 +45,6 @@ class Admin extends Component {
         alert("Username and Password is wrong!");
       }
     });
-
-    alert(this.state.choiceText);
-
->>>>>>> 5ff77798d384ce2f4dc8c935af08c0a67fed33b3
-    alert(this.state.username + "  " + this.state.password);
   };
 
   onAdmin = () => {
