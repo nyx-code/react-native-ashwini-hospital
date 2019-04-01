@@ -40,7 +40,23 @@ class List extends React.Component {
 
   componentDidMount = async () => {
     try {
-      const value = await AsyncStorage.getItem("user-data");
+      const current = await AsyncStorage.getItem("loggedin-user");
+      let value;
+      if (current !== null) {
+        // alert(value);
+        if (current === "doctor") {
+          // alert("doctor");
+          value = await AsyncStorage.getItem("user-data");
+        } else if (current === "houseman") {
+          value = await AsyncStorage.getItem("current-data");
+          // this.props.navigation.navigate("DoctorList");
+        }
+      } else {
+        // alert("Data not found");
+        this.props.navigation.navigate("Auth");
+      }
+
+      // const value = await AsyncStorage.getItem("user-data");
 
       if (value !== null) {
         const { code } = this.props;

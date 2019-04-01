@@ -32,14 +32,12 @@ class Admin extends Component {
   };
 
   onLogin = () => {
-    const { username, password } = this.state;
-    // this.setState({ isLoading: true });
-    alert("Houseman Login");
+    // const { username, password } = this.state;
+    // // this.setState({ isLoading: true });
+    // alert("Houseman Login");
     // this.props.navigation.navigate("Dashboard");
-
     // toLogin(username, password, 2).then(res => {
     //   // alert("Hii");
-
     //   // if (res.Code) {
     //   //   AsyncStorage.setItem("current-data", JSON.stringify(res)).then(() => {
     //   //     AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
@@ -51,6 +49,32 @@ class Admin extends Component {
     //   //   alert("Username and Password is wrong!");
     //   // }
     // });
+
+    const { username, password } = this.state;
+
+    this.setState({ isLoading: true });
+
+    toLogin(username, password, 2)
+      .then(res => {
+        this.setState({ isLoading: false });
+
+        if (res.Code) {
+          AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
+            AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+              this.props.navigation.navigate("DoctorList");
+            });
+          });
+        } else {
+          alert("Username and Password is wrong!");
+        }
+      })
+      .catch(e => {
+        alert("Could not connect server!");
+        this.setState({
+          error: "Could not connect server!",
+          isLoading: false
+        });
+      });
   };
 
   onAdmin = () => {
