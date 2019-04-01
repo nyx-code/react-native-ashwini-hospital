@@ -20,7 +20,7 @@ import { setFontSize } from "../Compoents/SetSize";
 
 class List extends React.Component {
   state = {
-    data: []
+    data: undefined
   };
   setImage = gender => {
     if (gender === "M") {
@@ -43,20 +43,14 @@ class List extends React.Component {
       const current = await AsyncStorage.getItem("loggedin-user");
       let value;
       if (current !== null) {
-        // alert(value);
         if (current === "doctor") {
-          // alert("doctor");
           value = await AsyncStorage.getItem("user-data");
         } else if (current === "houseman") {
           value = await AsyncStorage.getItem("current-data");
-          // this.props.navigation.navigate("DoctorList");
         }
       } else {
-        // alert("Data not found");
         this.props.navigation.navigate("Auth");
       }
-
-      // const value = await AsyncStorage.getItem("user-data");
 
       if (value !== null) {
         const { code } = this.props;
@@ -85,7 +79,11 @@ class List extends React.Component {
 
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        {data.length > 0 ? (
+        {data === undefined ? (
+          <Loading />
+        ) : data.length === 0 ? (
+          <Text style={{ color: "red" }}>No Data Available</Text>
+        ) : (
           <FlatList
             data={data}
             keyExtractor={data => data.REGNO + data.SMODE + data.PTYPE}
@@ -170,8 +168,6 @@ class List extends React.Component {
               </TouchableOpacity>
             )}
           />
-        ) : (
-          <Loading />
         )}
       </ScrollView>
     );
