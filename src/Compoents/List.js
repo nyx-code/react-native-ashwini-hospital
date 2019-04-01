@@ -20,7 +20,8 @@ import { setFontSize } from "../Compoents/SetSize";
 
 class List extends React.Component {
   state = {
-    data: undefined
+    data: [],
+    isLoading: true
   };
   setImage = gender => {
     if (gender === "M") {
@@ -58,7 +59,7 @@ class List extends React.Component {
 
         getPatientList(code, data.Code)
           .then(data => {
-            this.setState({ data });
+            this.setState({ data, isLoading: false });
           })
           .catch(e => alert(JSON.stringify(e)));
       }
@@ -68,7 +69,7 @@ class List extends React.Component {
   };
 
   render() {
-    let { data } = this.state;
+    let { data, isLoading } = this.state;
     const { type, typeMode } = this.props;
 
     if (data) {
@@ -79,7 +80,7 @@ class List extends React.Component {
 
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        {data === undefined ? (
+        {isLoading ? (
           <Loading />
         ) : data.length === 0 ? (
           <Text style={{ color: "red" }}>No Data Available</Text>

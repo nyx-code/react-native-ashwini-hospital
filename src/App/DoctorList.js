@@ -6,42 +6,37 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  FlatList,
   AsyncStorage
 } from "react-native";
 import Header from "../Compoents/Header";
 import { hp } from "../Style/responsive";
 import { colors } from "../Style/Colors";
 import { getDoctorList } from "../api/config";
+import Loading from "../Compoents/Loading";
 
 export default class DoctorList extends React.Component {
   state = {
-    data: []
+    data: [],
+    isLoading: true
   };
 
   onList = data => {
-    // alert(JSON.stringify(data));
-
-    // AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
-    //   alert
-    // });
     AsyncStorage.setItem("current-data", JSON.stringify(data))
       .then(() => {
-        // alert(JSON.stringify(data));
         this.props.navigation.navigate("HSManDashboard");
       })
       .catch(e => alert(JSON.stringify(e)));
-    // this.props.navigation.navigate("HSManDashboard");
   };
 
   componentDidMount = async () => {
     try {
       const value = await AsyncStorage.getItem("user-data");
       if (value !== null) {
-        // const { code } = this.props;
         const data = JSON.parse(value);
         getDoctorList(data.UserName)
           .then(data => {
-            this.setState({ data });
+            this.setState({ data, isLoading: false });
           })
           .catch(e => alert(JSON.stringify(e)));
       }
@@ -51,6 +46,8 @@ export default class DoctorList extends React.Component {
   };
 
   render() {
+    const { data, isLoading } = this.state;
+
     return (
       <View style={{ flex: 1 }}>
         <Header text="DOCTOR LIST" />
@@ -58,40 +55,49 @@ export default class DoctorList extends React.Component {
           style={{ flex: 1 }}
           contentContainerStyle={styles.scrollWrapper}
         >
-          {this.state.data.map((data, i) => (
-            <TouchableOpacity
-              key={i}
-              activeOpacity={0.8}
-              style={styles.listWrapper}
-              onPress={() => this.onList(data)}
-            >
-              <Image
-                source={{
-                  uri:
-                    "http://www.teainconline.com/uploads/images/tea-male-avatar.jpg"
-                }}
-                style={styles.img}
-              />
-              <View style={styles.infoWrapper}>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>Name: </Text>
-                  <Text style={styles.subtitle}>{data.DrName}</Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>Department: </Text>
-                  <Text style={styles.subtitle}>{data.Department}</Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>From Date: </Text>
-                  <Text style={styles.subtitle}>{data.FromDate}</Text>
-                </View>
-                <View style={styles.nameSection}>
-                  <Text style={styles.title}>To Date: </Text>
-                  <Text style={styles.subtitle}>{data.ToDate}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <FlatList
+              data={data}
+              keyExtractor={data => data.DrName}
+              initialNumToRender={8}
+              maxToRenderPerBatch={2}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.listWrapper}
+                  onPress={() => this.onList(item)}
+                >
+                  <Image
+                    source={{
+                      uri:
+                        "http://www.teainconline.com/uploads/images/tea-male-avatar.jpg"
+                    }}
+                    style={styles.img}
+                  />
+                  <View style={styles.infoWrapper}>
+                    <View style={styles.nameSection}>
+                      <Text style={styles.title}>Name: </Text>
+                      <Text style={styles.subtitle}>{item.DrName}</Text>
+                    </View>
+                    <View style={styles.nameSection}>
+                      <Text style={styles.title}>Department: </Text>
+                      <Text style={styles.subtitle}>{item.Department}</Text>
+                    </View>
+                    <View style={styles.nameSection}>
+                      <Text style={styles.title}>From Date: </Text>
+                      <Text style={styles.subtitle}>{item.FromDate}</Text>
+                    </View>
+                    <View style={styles.nameSection}>
+                      <Text style={styles.title}>To Date: </Text>
+                      <Text style={styles.subtitle}>{item.ToDate}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          )}
         </ScrollView>
       </View>
     );
