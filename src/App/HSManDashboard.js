@@ -3,12 +3,12 @@ import { View, StyleSheet, Image, Text, AsyncStorage } from "react-native";
 import { colors } from "../Style/Colors";
 import { wp, hp } from "../Style/responsive";
 import Options from "../Compoents/Options";
-import Header from "../Compoents/Header";
 import { setFontSize } from "../Compoents/SetSize";
 
-export class Dashboard extends Component {
+export class HSManDashboard extends Component {
   state = {
-    data: {}
+    data: {},
+    currentDoctor: {}
   };
 
   onOPD = () => {
@@ -26,10 +26,12 @@ export class Dashboard extends Component {
   componentDidMount = async () => {
     try {
       const value = await AsyncStorage.getItem("user-data");
-      if (value !== null) {
+      const current = await AsyncStorage.getItem("current-data");
+      if (value && current) {
         const data = JSON.parse(value);
-        // alert(data.DRNAME);
-        this.setState({ data });
+        const currentDoctor = JSON.parse(current);
+        alert(JSON.stringify(currentDoctor));
+        this.setState({ data, currentDoctor });
       } else {
         this.props.navigation.navigate("Auth");
       }
@@ -39,9 +41,9 @@ export class Dashboard extends Component {
   };
 
   render() {
+    const { data, currentDoctor } = this.state;
     return (
       <View styles={styles.container}>
-        <Header text="Dashboard" isLogoutIcon={true} />
         <View style={styles.profile}>
           <Image
             style={styles.imgStyle}
@@ -49,9 +51,10 @@ export class Dashboard extends Component {
           />
           <View style={styles.profileNameWrapper}>
             <Text style={styles.name}>
-              {this.state.data.PRENM} {this.state.data.DRNAME}
+              {data.NAME} {data.MIDDLENAME} {data.LASTNAME}
             </Text>
-            <Text style={styles.profession}>{this.state.data.DEPARTMENT}</Text>
+            <Text style={styles.name}>Selected: {currentDoctor.DrName}</Text>
+            <Text style={styles.profession}>{currentDoctor.Qualification}</Text>
           </View>
         </View>
         <View style={styles.dashboard}>
@@ -129,4 +132,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Dashboard;
+export default HSManDashboard;

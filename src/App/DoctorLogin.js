@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  ScrollView
 } from "react-native";
 import { wp, hp } from "../Style/responsive";
 import Header from "../Compoents/Header";
@@ -14,6 +15,7 @@ import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
 import { toLogin } from "./../api/config";
+import { setFontSize } from "../Compoents/SetSize";
 
 class DoctorLogin extends Component {
   state = {
@@ -72,45 +74,47 @@ class DoctorLogin extends Component {
     return (
       <View style={styles.container}>
         <Header text="DOCTOR LOGIN" isBack={true} />
-        <Quote />
-        <View style={styles.loginWrapper}>
-          <View style={styles.userNameWrapper}>
-            <TextInput
-              autFocus={true}
-              style={styles.textInput}
-              placeholder="USERNAME"
-              onChangeText={username => this.onChangeUsernameHandle(username)}
-              value={this.state.username}
-            />
+        <ScrollView style={{ flex: 1 }}>
+          <Quote />
+          <View style={styles.loginWrapper}>
+            <View style={styles.userNameWrapper}>
+              <TextInput
+                autFocus={true}
+                style={styles.textInput}
+                placeholder="USERNAME"
+                onChangeText={username => this.onChangeUsernameHandle(username)}
+                value={this.state.username}
+              />
+            </View>
+            <View style={styles.passwordWrapper}>
+              <TextInput
+                secureTextEntry={passwordTextEntry}
+                style={[styles.textInput, { flex: 1 }]}
+                placeholder="PASSWORD"
+                onChangeText={password => this.onChangePasswordHandle(password)}
+                value={this.state.password}
+              />
+              <Icon
+                onPress={this.onPasswordTextEntry}
+                style={styles.icon}
+                name={passwordTextEntry ? "eye-off" : "eye"}
+                color={colors.primaryColor}
+                size={20}
+              />
+            </View>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={this.onLogin}
+              style={styles.buttonWrapper}
+            >
+              {this.state.isLoading ? (
+                <ActivityIndicator size="small" color={colors.whiteColor} />
+              ) : (
+                <Text style={styles.loginText}>LOGIN</Text>
+              )}
+            </TouchableOpacity>
           </View>
-          <View style={styles.passwordWrapper}>
-            <TextInput
-              secureTextEntry={passwordTextEntry}
-              style={[styles.textInput, { flex: 1 }]}
-              placeholder="PASSWORD"
-              onChangeText={password => this.onChangePasswordHandle(password)}
-              value={this.state.password}
-            />
-            <Icon
-              onPress={this.onPasswordTextEntry}
-              style={styles.icon}
-              name={passwordTextEntry ? "eye-off" : "eye"}
-              color={colors.primaryColor}
-              size={20}
-            />
-          </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={this.onLogin}
-            style={styles.buttonWrapper}
-          >
-            {this.state.isLoading ? (
-              <ActivityIndicator size="small" color={colors.whiteColor} />
-            ) : (
-              <Text style={styles.loginText}>LOGIN</Text>
-            )}
-          </TouchableOpacity>
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2%") //2.2
+    fontSize: setFontSize("2.2", "2") //2.2 //2
   }
 });
 

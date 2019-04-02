@@ -14,6 +14,8 @@ import { colors } from "../Style/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Quote from "../Compoents/Quote";
 import { toLogin } from "../api/config";
+import { setFontSize } from "../Compoents/SetSize";
+
 class Admin extends Component {
   state = {
     passwordTextEntry: true,
@@ -30,19 +32,49 @@ class Admin extends Component {
   };
 
   onLogin = () => {
+    // const { username, password } = this.state;
+    // // this.setState({ isLoading: true });
+    // alert("Houseman Login");
+    // this.props.navigation.navigate("Dashboard");
+    // toLogin(username, password, 2).then(res => {
+    //   // alert("Hii");
+    //   // if (res.Code) {
+    //   //   AsyncStorage.setItem("current-data", JSON.stringify(res)).then(() => {
+    //   //     AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+    //   //       // alert("Hii");
+    //   //       this.props.navigation.navigate("DoctorList");
+    //   //     });
+    //   //   });
+    //   // } else {
+    //   //   alert("Username and Password is wrong!");
+    //   // }
+    // });
+
     const { username, password } = this.state;
+
     this.setState({ isLoading: true });
-    toLogin(username, password, 2).then(res => {
-      if (res.Code) {
-        AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
-          AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
-            this.props.navigation.navigate("DoctorList");
+
+    toLogin(username, password, 2)
+      .then(res => {
+        this.setState({ isLoading: false });
+
+        if (res.Code) {
+          AsyncStorage.setItem("user-data", JSON.stringify(res)).then(() => {
+            AsyncStorage.setItem("loggedin-user", "houseman").then(() => {
+              this.props.navigation.navigate("DoctorList");
+            });
           });
+        } else {
+          alert("Username and Password is wrong!");
+        }
+      })
+      .catch(e => {
+        alert("Could not connect server!");
+        this.setState({
+          error: "Could not connect server!",
+          isLoading: false
         });
-      } else {
-        alert("Username and Password is wrong!");
-      }
-    });
+      });
   };
 
   onAdmin = () => {
@@ -192,7 +224,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: colors.whiteColor,
-    fontSize: hp("2%") //2.2
+    fontSize: setFontSize("2.2", "2") //2.2
   },
   choiceWrapper: {
     flexDirection: "row",
@@ -206,7 +238,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   choiceText: {
-    fontSize: hp("1.9%"),
+    fontSize: setFontSize("2.1", "1.9"), //1.9{ios}
     marginHorizontal: 8
   }
 });

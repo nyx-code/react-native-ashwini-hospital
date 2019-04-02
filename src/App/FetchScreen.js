@@ -9,14 +9,14 @@ export default class FetchScreen extends React.Component {
     try {
       const value = await AsyncStorage.getItem("loggedin-user");
       if (value !== null) {
-        // alert("Data found")
+        // alert(value);
         if (value === "doctor") {
           this.props.navigation.navigate("App");
-        } else {
+        } else if (value === "houseman") {
           this.props.navigation.navigate("DoctorList");
         }
       } else {
-        // alert("Data not found")
+        // alert("Data not found");
         this.props.navigation.navigate("Auth");
       }
     } catch (error) {

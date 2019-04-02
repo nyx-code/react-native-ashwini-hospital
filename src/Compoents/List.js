@@ -16,9 +16,12 @@ import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
 import Loading from "../Compoents/Loading";
 import { getPatientList } from "./../api/config";
+import { setFontSize } from "../Compoents/SetSize";
+
 class List extends React.Component {
   state = {
-    data: []
+    data: [],
+    isLoading: true
   };
   setImage = gender => {
     if (gender === "M") {
@@ -38,7 +41,17 @@ class List extends React.Component {
 
   componentDidMount = async () => {
     try {
-      const value = await AsyncStorage.getItem("user-data");
+      const current = await AsyncStorage.getItem("loggedin-user");
+      let value;
+      if (current !== null) {
+        if (current === "doctor") {
+          value = await AsyncStorage.getItem("user-data");
+        } else if (current === "houseman") {
+          value = await AsyncStorage.getItem("current-data");
+        }
+      } else {
+        this.props.navigation.navigate("Auth");
+      }
 
       if (value !== null) {
         const { code } = this.props;
@@ -46,7 +59,7 @@ class List extends React.Component {
 
         getPatientList(code, data.Code)
           .then(data => {
-            this.setState({ data });
+            this.setState({ data, isLoading: false });
           })
           .catch(e => alert(JSON.stringify(e)));
       }
@@ -56,7 +69,7 @@ class List extends React.Component {
   };
 
   render() {
-    let { data } = this.state;
+    let { data, isLoading } = this.state;
     const { type, typeMode } = this.props;
 
     if (data) {
@@ -67,7 +80,11 @@ class List extends React.Component {
 
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        {data.length > 0 ? (
+        {isLoading ? (
+          <Loading />
+        ) : data.length === 0 ? (
+          <Text style={{ color: "red" }}>No Data Available</Text>
+        ) : (
           <FlatList
             data={data}
             keyExtractor={data => data.REGNO + data.SMODE + data.PTYPE}
@@ -152,8 +169,6 @@ class List extends React.Component {
               </TouchableOpacity>
             )}
           />
-        ) : (
-          <Loading />
         )}
       </ScrollView>
     );
@@ -191,11 +206,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#333",
-    fontSize: hp("1.9%"), //2.1
+    fontSize: setFontSize("2.1", "1.9"),
     marginHorizontal: 4
   },
   subTitle: {
-    fontSize: hp("1.8%"), //2
+    fontSize: setFontSize("2.1", "1.9"),
     color: "grey",
     marginHorizontal: 4
   },
@@ -214,7 +229,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: "#fff",
-    fontSize: hp("1.8%") //2
+    fontSize: setFontSize("2", "1.8") //2 //1.8
   }
 });
 
