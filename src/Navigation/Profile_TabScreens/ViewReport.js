@@ -6,15 +6,19 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Modal
+  Modal,
+  WebView
 } from "react-native";
 import { getPatientReports } from "../../api/config";
 import { colors } from "../../Style/Colors";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class ViewReport extends Component {
   state = {
     isLoading: true,
-    modalVisible: false
+    modalVisible: false,
+    param: "",
+    resultText: ""
   };
   componentDidMount = async () => {
     try {
@@ -34,15 +38,8 @@ class ViewReport extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  onList = () => {
-    //alert(text);
-    this.setState({
-      modalVisible: true
-    });
-  };
-
   render() {
-    const { data, isLoading } = this.state;
+    const { data, isLoading, param, resultText } = this.state;
     return (
       <ScrollView
         style={{ flex: 1, paddingVertical: 4, backgroundColor: "#dcdcdc" }}
@@ -51,9 +48,15 @@ class ViewReport extends Component {
           <ActivityIndicator size="large" color={colors.primaryColor} />
         ) : (
           data.map((data, i) => (
-            <React.Fragment>
+            <React.Fragment key={i}>
               <TouchableOpacity
-                onPress={this.onList}
+                onPress={() => {
+                  this.setState({
+                    modalVisible: true,
+                    param: data.Param_Description,
+                    resultText: data.IR_RESULT_TEXT
+                  });
+                }}
                 activeOpacity={0.8}
                 style={styles.wrapper}
               >
@@ -81,14 +84,33 @@ class ViewReport extends Component {
             }}
           >
             <View style={styles.modalContainer}>
-              <Text style={styles.mainTitle}>RESULT : </Text>
+              <Text style={styles.mainTitle}>DESCRIPTION : </Text>
+
+              <Text style={styles.subtitle}>{param}</Text>
+
               <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
+                style={styles.iconWrapper}
               >
-                <Text style={styles.subtitle}>OPS</Text>
+                <Icon
+                  name="close-circle"
+                  size={28}
+                  color={colors.primaryColor}
+                />
               </TouchableOpacity>
+              {resultText ? (
+                <WebView
+                  useWebKit={true}
+                  startInLoadingState={true}
+                  style={{ width: 400, height: 400 }}
+                  scrollEnabled={true}
+                  source={{ html: resultText }}
+                />
+              ) : (
+                <View />
+              )}
             </View>
           </View>
         </Modal>
@@ -102,7 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.whiteColor,
     padding: 8,
     marginVertical: 2,
-    marginHorizontal: 4,
+    marginHorizontal: 6,
     borderWidth: 0.3,
     borderColor: colors.lightGrey
   },
@@ -122,13 +144,18 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     color: "#333",
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 4
   },
   subtitle: {
     color: "grey",
-    fontSize: 16,
+    fontSize: 17,
     marginVertical: 4
+  },
+  iconWrapper: {
+    position: "absolute",
+    top: 20,
+    left: 260
   }
 });
 
