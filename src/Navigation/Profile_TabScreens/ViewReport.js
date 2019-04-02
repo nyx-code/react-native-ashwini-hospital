@@ -83,7 +83,9 @@ class ViewReport extends Component {
               backgroundColor: "rgba(0,0,0,0.6)"
             }}
           >
-            <View style={styles.modalContainer}>
+            <View
+              style={[styles.modalContainer, resultText && { height: 300 }]}
+            >
               <Text style={styles.mainTitle}>DESCRIPTION : </Text>
 
               <Text style={styles.subtitle}>{param}</Text>
@@ -104,8 +106,9 @@ class ViewReport extends Component {
                 <WebView
                   useWebKit={true}
                   startInLoadingState={true}
-                  style={{ width: 400, height: 400 }}
+                  style={{ marginTop: 10, width: 260, height: 400 }}
                   scrollEnabled={true}
+                  shouldRasterizeIOS={false}
                   source={{ html: resultText }}
                 />
               ) : (
