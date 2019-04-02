@@ -34,7 +34,6 @@ class PatientProfile extends Component {
   render() {
     const { navigation } = this.props;
     const data = navigation.getParam("item");
-    console.log("Data :" + JSON.stringify(data));
 
     return (
       <View style={styles.container}>
@@ -77,7 +76,7 @@ class PatientProfile extends Component {
             </View>
           </View>
         </View>
-        <TabBar />
+        <TabBar screenProps={{ type: "opd", refNo: data.REGNO }} />
       </View>
     );
   }

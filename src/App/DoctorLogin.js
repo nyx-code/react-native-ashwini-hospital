@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
   userNameWrapper: {
     borderBottomWidth: 1,
     marginVertical: 20,
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    // paddingVertical: 14
   },
   textInput: {
     fontSize: hp("2%")
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
     alignItems: "center",
-    borderBottomColor: colors.primaryColor,
-    paddingVertical: 14
+    borderBottomColor: colors.primaryColor
+    //paddingVertical: 14
   },
   icon: {
     marginHorizontal: 8
