@@ -12,7 +12,7 @@ export class Dashboard extends Component {
   };
 
   onOPD = () => {
-    this.props.navigation.navigate("OPD_TabBar");
+    this.props.navigation.navigate("PatientProfile");
   };
 
   onIPD = () => {

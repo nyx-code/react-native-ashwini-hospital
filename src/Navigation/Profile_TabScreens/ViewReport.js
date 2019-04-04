@@ -5,13 +5,12 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
-  Modal,
-  WebView
+  TouchableOpacity
 } from "react-native";
 import { getPatientReports } from "../../api/config";
 import { colors } from "../../Style/Colors";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { report } from "../../App/dummy";
+import _ from "lodash";
 
 class ViewReport extends Component {
   state = {
@@ -20,18 +19,34 @@ class ViewReport extends Component {
     param: "",
     resultText: ""
   };
-  componentDidMount = async () => {
-    try {
-      const { type, refNo } = this.props.screenProps;
-      getPatientReports(type, refNo)
-        .then(data => {
-          console.log(JSON.stringify(data));
-          this.setState({ data, isLoading: false });
-        })
-        .catch(e => alert(JSON.stringify(e)));
-    } catch (error) {
-      console.log("Error while retriving data");
-    }
+  componentDidMount = () => {
+    // try {
+    //   const { type, refNo } = this.props.screenProps;
+    //   getPatientReports(type, refNo)
+    //     .then(data => {
+    //       console.log(JSON.stringify(data));
+    //       this.setState({ data, isLoading: false });
+    //     })
+    //     .catch(e => alert(JSON.stringify(e)));
+    // } catch (error) {
+    //   console.log("Error while retriving data");
+    // }
+
+    const data = report;
+
+    var groups = _.groupBy(data, "INVEST_DESCRIPTION");
+    var array = [];
+    _.forOwn(groups, function(value, key) {
+      array.push({
+        key: key,
+        value: value
+      });
+    });
+
+    this.setState({
+      data: array,
+      isLoading: false
+    });
   };
 
   setModalVisible(visible) {
@@ -39,7 +54,7 @@ class ViewReport extends Component {
   }
 
   render() {
-    const { data, isLoading, param, resultText } = this.state;
+    const { data, isLoading } = this.state;
     return (
       <ScrollView
         style={{ flex: 1, paddingVertical: 4, backgroundColor: "#dcdcdc" }}
@@ -51,72 +66,20 @@ class ViewReport extends Component {
             <React.Fragment key={i}>
               <TouchableOpacity
                 onPress={() => {
-                  this.setState({
-                    modalVisible: true,
-                    param: data.Param_Description,
-                    resultText: data.IR_RESULT_TEXT
+                  this.props.screenProps.navigation.navigate("Report", {
+                    reportName: data.key,
+                    values: data.value
                   });
                 }}
                 activeOpacity={0.8}
                 style={styles.wrapper}
               >
-                <Text style={styles.title}>{data.INVEST_DESCRIPTION}</Text>
-                <Text style={styles.data}>{data.FROMDT}</Text>
+                <Text style={styles.title}>{data.key}</Text>
+                <Text style={styles.data}>24 th June</Text>
               </TouchableOpacity>
             </React.Fragment>
           ))
         )}
-        <Modal
-          style={{ backgroundColor: "blue" }}
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert("Modal has been closed.");
-          }}
-        >
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              flex: 1,
-              backgroundColor: "rgba(0,0,0,0.6)"
-            }}
-          >
-            <View
-              style={[styles.modalContainer, resultText && { height: 300 }]}
-            >
-              <Text style={styles.mainTitle}>DESCRIPTION : </Text>
-
-              <Text style={styles.subtitle}>{param}</Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-                style={styles.iconWrapper}
-              >
-                <Icon
-                  name="close-circle"
-                  size={28}
-                  color={colors.primaryColor}
-                />
-              </TouchableOpacity>
-              {resultText ? (
-                <WebView
-                  useWebKit={true}
-                  startInLoadingState={true}
-                  style={{ marginTop: 10, width: 260, height: 400 }}
-                  scrollEnabled={true}
-                  shouldRasterizeIOS={false}
-                  source={{ html: resultText }}
-                />
-              ) : (
-                <View />
-              )}
-            </View>
-          </View>
-        </Modal>
       </ScrollView>
     );
   }
@@ -139,26 +102,6 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     color: colors.lightGrey
-  },
-  modalContainer: {
-    backgroundColor: "#fff",
-    width: 300,
-    padding: 20
-  },
-  mainTitle: {
-    color: "#333",
-    fontSize: 16,
-    marginVertical: 4
-  },
-  subtitle: {
-    color: "grey",
-    fontSize: 17,
-    marginVertical: 4
-  },
-  iconWrapper: {
-    position: "absolute",
-    top: 20,
-    left: 260
   }
 });
 

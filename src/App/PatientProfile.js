@@ -39,44 +39,49 @@ class PatientProfile extends Component {
       <View style={styles.container}>
         <View style={styles.profileWrapper}>
           <View style={styles.imgContainer}>
-            <Image style={styles.img} source={this.setImage(data.GENDER)} />
+            <Image style={styles.img} source={this.setImage("M")} />
           </View>
           <View style={styles.infoWrapper}>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                PIN : <Text style={styles.subtitle}>{data.REGNO}</Text>
+                PIN : <Text style={styles.subtitle}>1222</Text>
               </Text>
               <Text style={styles.title}>
-                VOUCHER :{" "}
-                <Text style={styles.subtitle}> {data.REFNO || data.IPDNO}</Text>
-              </Text>
-            </View>
-            <View style={styles.nameSection}>
-              <Text style={styles.title}>
-                NAME : <Text style={styles.subtitle}> {data.PAT_NAME}</Text>
+                VOUCHER : <Text style={styles.subtitle}> 12222</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                AGE : <Text style={styles.subtitle}> {data.AGE} Y</Text>
-              </Text>
-              <Text style={styles.title}>
-                GENDER : <Text style={styles.subtitle}>{data.GENDER}</Text>
+                NAME : <Text style={styles.subtitle}> Nilesh Kadam</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                LOCATION : <Text style={styles.subtitle}>{data.LOC}</Text>
+                AGE : <Text style={styles.subtitle}> 12 Y</Text>
+              </Text>
+              <Text style={styles.title}>
+                GENDER : <Text style={styles.subtitle}>M</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                DR : <Text style={styles.subtitle}>{data.CONDOC}</Text>
+                LOCATION : <Text style={styles.subtitle}>OPD</Text>
+              </Text>
+            </View>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                DR : <Text style={styles.subtitle}>KADAM SHAILESH</Text>
               </Text>
             </View>
           </View>
         </View>
-        <TabBar screenProps={{ type: "opd", refNo: data.REGNO }} />
+        <TabBar
+          screenProps={{
+            type: "opd",
+            refNo: "data.REGNO",
+            navigation: this.props.navigation
+          }}
+        />
       </View>
     );
   }
