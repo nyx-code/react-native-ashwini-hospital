@@ -76,6 +76,7 @@ class List extends React.Component {
         data = data.filter(e => e.SMODE === typeMode);
       }
     }
+    console.log("LIST");
 
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>

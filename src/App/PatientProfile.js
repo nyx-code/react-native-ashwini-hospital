@@ -34,43 +34,44 @@ class PatientProfile extends Component {
   render() {
     const { navigation } = this.props;
     const data = navigation.getParam("item");
-
+    console.log("PatienProfile");
     return (
       <View style={styles.container}>
         <View style={styles.profileWrapper}>
           <View style={styles.imgContainer}>
-            <Image style={styles.img} source={this.setImage("M")} />
+            <Image style={styles.img} source={this.setImage(data.GENDER)} />
           </View>
           <View style={styles.infoWrapper}>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                PIN : <Text style={styles.subtitle}>1222</Text>
+                PIN : <Text style={styles.subtitle}>{data.REGNO}</Text>
               </Text>
               <Text style={styles.title}>
-                VOUCHER : <Text style={styles.subtitle}> 12222</Text>
-              </Text>
-            </View>
-            <View style={styles.nameSection}>
-              <Text style={styles.title}>
-                NAME : <Text style={styles.subtitle}> Nilesh Kadam</Text>
+                VOUCHER :{" "}
+                <Text style={styles.subtitle}> {data.REFNO || data.IPDNO}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                AGE : <Text style={styles.subtitle}> 12 Y</Text>
-              </Text>
-              <Text style={styles.title}>
-                GENDER : <Text style={styles.subtitle}>M</Text>
+                NAME : <Text style={styles.subtitle}>{data.PAT_NAME}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                LOCATION : <Text style={styles.subtitle}>OPD</Text>
+                AGE : <Text style={styles.subtitle}> {data.AGE} Y</Text>
+              </Text>
+              <Text style={styles.title}>
+                GENDER : <Text style={styles.subtitle}>{data.GENDER}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                DR : <Text style={styles.subtitle}>KADAM SHAILESH</Text>
+                LOCATION : <Text style={styles.subtitle}>{data.LOC}</Text>
+              </Text>
+            </View>
+            <View style={styles.nameSection}>
+              <Text style={styles.title}>
+                DR : <Text style={styles.subtitle}>{data.CONDOC}</Text>
               </Text>
             </View>
           </View>
@@ -78,7 +79,7 @@ class PatientProfile extends Component {
         <TabBar
           screenProps={{
             type: "opd",
-            refNo: "data.REGNO",
+            refNo: data.REGNO,
             navigation: this.props.navigation
           }}
         />

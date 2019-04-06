@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, WebView } from "react-native";
+import { View, Text, StyleSheet, WebView, ScrollView } from "react-native";
 import Header from "../Compoents/Header";
 import { colors } from "../Style/Colors";
 
@@ -13,15 +13,20 @@ class Report extends Component {
     return (
       <View style={styles.container}>
         <Header text="REPORT" isBack={true} />
-        <View style={styles.reportWrapper}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.reportWrapper}
+        >
           <View style={styles.titleWrapper}>
-            <Text style={styles.header}>Report Name : {reportName}</Text>
+            <Text style={styles.header}>Test Name : {reportName}</Text>
           </View>
           {data.map((data, i) => (
-            <View key={i} style={styles.listWrapper}>
+            <View style={styles.listWrapper}>
               <View style={styles.list}>
                 <Text style={styles.title}>{data.Param_Description}</Text>
-                <Text style={styles.subtitle}>{data.char}</Text>
+                <Text style={styles.subtitle}>
+                  {data.IR_RESULT_NUM || data.IR_RESULT_CHAR}
+                </Text>
               </View>
             </View>
           ))}
@@ -37,7 +42,7 @@ class Report extends Component {
           ) : (
             <View />
           )}
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -73,7 +78,7 @@ const styles = StyleSheet.create({
   header: {
     color: colors.whiteColor,
     fontWeight: "bold",
-    letterSpacing: 1.4,
+    letterSpacing: 0.8,
     fontSize: 16
   },
   reportWrapper: {

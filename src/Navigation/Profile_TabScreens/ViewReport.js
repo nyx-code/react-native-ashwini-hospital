@@ -9,49 +9,37 @@ import {
 } from "react-native";
 import { getPatientReports } from "../../api/config";
 import { colors } from "../../Style/Colors";
-import { report } from "../../App/dummy";
 import _ from "lodash";
 
 class ViewReport extends Component {
   state = {
     isLoading: true,
-    modalVisible: false,
     param: "",
-    resultText: ""
+    resultText: "",
+    data: []
   };
-  componentDidMount = () => {
-    // try {
-    //   const { type, refNo } = this.props.screenProps;
-    //   getPatientReports(type, refNo)
-    //     .then(data => {
-    //       console.log(JSON.stringify(data));
-    //       this.setState({ data, isLoading: false });
-    //     })
-    //     .catch(e => alert(JSON.stringify(e)));
-    // } catch (error) {
-    //   console.log("Error while retriving data");
-    // }
+  componentDidMount = async () => {
+    try {
+      const { type, refNo } = this.props.screenProps;
+      console.log(type + " " + refNo);
 
-    const data = report;
-
-    var groups = _.groupBy(data, "INVEST_DESCRIPTION");
-    var array = [];
-    _.forOwn(groups, function(value, key) {
-      array.push({
-        key: key,
-        value: value
-      });
-    });
-
-    this.setState({
-      data: array,
-      isLoading: false
-    });
+      getPatientReports(type, refNo)
+        .then(data => {
+          var groups = _.groupBy(data, "INVEST_DESCRIPTION");
+          var array = [];
+          _.forOwn(groups, function(value, key) {
+            array.push({
+              key: key,
+              value: value
+            });
+          });
+          this.setState({ data: array, isLoading: false });
+        })
+        .catch(e => alert(JSON.stringify(e)));
+    } catch (error) {
+      console.log("Error while retriving data");
+    }
   };
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
 
   render() {
     const { data, isLoading } = this.state;
@@ -61,6 +49,8 @@ class ViewReport extends Component {
       >
         {isLoading ? (
           <ActivityIndicator size="large" color={colors.primaryColor} />
+        ) : this.state.data.length === 0 ? (
+          <Text>No data Available</Text>
         ) : (
           data.map((data, i) => (
             <React.Fragment key={i}>

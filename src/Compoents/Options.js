@@ -5,8 +5,10 @@ import { withNavigation } from "react-navigation";
 import { wp, hp } from "../Style/responsive";
 import { setFontSize } from "../Compoents/SetSize";
 
-class Options extends Component {
+class Options extends React.PureComponent {
   render() {
+    console.log("Options");
+
     const { name, imgPath, no } = this.props;
     return (
       <TouchableOpacity
