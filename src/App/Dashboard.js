@@ -39,6 +39,8 @@ export class Dashboard extends Component {
   };
 
   render() {
+    console.log("Dash");
+
     return (
       <View styles={styles.container}>
         <Header text="Dashboard" isLogoutIcon={true} />

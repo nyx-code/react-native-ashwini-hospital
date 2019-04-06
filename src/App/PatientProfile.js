@@ -34,8 +34,7 @@ class PatientProfile extends Component {
   render() {
     const { navigation } = this.props;
     const data = navigation.getParam("item");
-    console.log("Data :" + JSON.stringify(data));
-
+    console.log("PatienProfile");
     return (
       <View style={styles.container}>
         <View style={styles.profileWrapper}>
@@ -54,7 +53,7 @@ class PatientProfile extends Component {
             </View>
             <View style={styles.nameSection}>
               <Text style={styles.title}>
-                NAME : <Text style={styles.subtitle}> {data.PAT_NAME}</Text>
+                NAME : <Text style={styles.subtitle}>{data.PAT_NAME}</Text>
               </Text>
             </View>
             <View style={styles.nameSection}>
@@ -77,7 +76,13 @@ class PatientProfile extends Component {
             </View>
           </View>
         </View>
-        <TabBar />
+        <TabBar
+          screenProps={{
+            type: "opd",
+            refNo: data.REGNO,
+            navigation: this.props.navigation
+          }}
+        />
       </View>
     );
   }

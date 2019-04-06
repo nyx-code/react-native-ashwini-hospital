@@ -8,6 +8,7 @@
     "clean": "cd android && gradlew clean && cd .."
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "react": "16.6.3",
     "react-cache": "^2.0.0-alpha.1",
     "react-native": "0.59.1",

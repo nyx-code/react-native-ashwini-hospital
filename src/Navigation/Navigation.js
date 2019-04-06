@@ -16,6 +16,7 @@ import FetchScreen from "../App/FetchScreen";
 import Discharge from "../Navigation/Discharge";
 import DoctorList from "../App/DoctorList";
 import HSManDashboard from "../App/HSManDashboard";
+import Report from "./Report";
 
 const AuthNavigation = createStackNavigator({
   Login: {
@@ -79,6 +80,12 @@ const AppNavigation = createStackNavigator({
     screen: HSManDashboard,
     navigationOptions: {
       header: <Header text="DASHBOARD" isLogoutIcon={true} />
+    }
+  },
+  Report: {
+    screen: Report,
+    navigationOptions: {
+      header: null
     }
   }
 });

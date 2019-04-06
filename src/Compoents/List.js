@@ -10,7 +10,6 @@ import {
   AsyncStorage
 } from "react-native";
 import { colors } from "../Style/Colors";
-import { hp } from "../Style/responsive";
 import { withNavigation } from "react-navigation";
 import { setPTYPEColor, setSMODEColor } from "./SelectTagColor";
 import { unstable_createResource as createResource } from "react-cache";
@@ -77,6 +76,7 @@ class List extends React.Component {
         data = data.filter(e => e.SMODE === typeMode);
       }
     }
+    console.log("LIST");
 
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
